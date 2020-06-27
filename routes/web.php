@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', 'HomePageController@index')->name('homepage');
 Route::get('/category/{slug_categoryname}', 'CategoryController@index')->name('category');
-Route::view('/product', 'product');
-Route::view('/shoppingcart', 'shoppingcart');
+Route::get('/product/{slug_productname}', 'ProductController@index')->name('product');
+Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart');
+Route::get('/payment', 'PaymentController@index')->name('payment');
+Route::get('/orders', 'OrderController@index')->name('orders');
