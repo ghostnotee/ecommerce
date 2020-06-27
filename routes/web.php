@@ -18,3 +18,4 @@ Route::get('/product/{slug_productname}', 'ProductController@index')->name('prod
 Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart');
 Route::get('/payment', 'PaymentController@index')->name('payment');
 Route::get('/orders', 'OrderController@index')->name('orders');
+Route::get('/orderdetails/{id}', 'OrderController@orderDetails')->name('orderdateils');
