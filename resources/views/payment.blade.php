@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Ödeme')
+@section('title','Ödeme Sayfası')
 @section('content')
     <div class="container">
         <div class="bg-content">

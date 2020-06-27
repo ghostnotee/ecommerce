@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Kategori')
+@section('title','Kategori Sayfası')
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
