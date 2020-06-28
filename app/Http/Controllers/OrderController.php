@@ -10,4 +10,9 @@ class OrderController extends Controller
     {
         return view('orders');
     }
+
+    public function orderDetails($id)
+    {
+        return view('orderdetails');
+    }
 }
