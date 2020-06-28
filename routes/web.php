@@ -19,5 +19,9 @@ Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart'
 Route::get('/payment', 'PaymentController@index')->name('payment');
 Route::get('/orders', 'OrderController@index')->name('orders');
 Route::get('/orderdetails/{id}', 'OrderController@orderDetails')->name('orderdateils');
-Route::get('/user/signin', 'UserController@signInForm')->name('user.signin');
-Route::get('/user/register', 'UserController@registerForm')->name('user.register');
+
+Route::group(['prefix' => '/user'],function (){
+    Route::get('/signin', 'UserController@signInForm')->name('user.signin');
+    Route::get('/register', 'UserController@registerForm')->name('user.register');
+});
+
