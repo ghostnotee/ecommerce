@@ -13,8 +13,19 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         DB::table('categories')->truncate();
-        DB::table('categories')->insert(['category_name' => 'Elektronik', 'slug' => 'elektronik']);
-        DB::table('categories')->insert(['category_name' => 'Kitap', 'slug' => 'kitap']);
+
+        $upId = DB::table('categories')->insertGetId(['category_name' => 'Elektronik', 'slug' => 'elektronik']);
+        DB::table('categories')->insert(['category_name'=>'Bilgisayar/Tablet','slug'=>'bilgisayar-tablet','up_id'=>$upId]);
+        DB::table('categories')->insert(['category_name'=>'Telefon','slug'=>'telefon','up_id'=>$upId]);
+        DB::table('categories')->insert(['category_name'=>'Tv ve Ses Sistemleri','slug'=>'tv-ses-sistemleri','up_id'=>$upId]);
+        DB::table('categories')->insert(['category_name'=>'Kamera','slug'=>'kamera','up_id'=>$upId]);
+
+        $upId = DB::table('categories')->insertGetId(['category_name' => 'Kitap', 'slug' => 'kitap']);
+        DB::table('categories')->insert(['category_name'=>'Edebiyat','slug'=>'edebiyat','up_id'=>$upId]);
+        DB::table('categories')->insert(['category_name'=>'Çocuk','slug'=>'cocuk','up_id'=>$upId]);
+        DB::table('categories')->insert(['category_name'=>'Bilgisayar','slug'=>'bilgisayar','up_id'=>$upId]);
+        DB::table('categories')->insert(['category_name'=>'Sınavlara Hazırlık','slug'=>'sinavlara-hazirlik','up_id'=>$upId]);
+
         DB::table('categories')->insert(['category_name' => 'Dergi', 'slug' => 'dergi']);
         DB::table('categories')->insert(['category_name' => 'Mobilya', 'slug' => 'mobilya']);
         DB::table('categories')->insert(['category_name' => 'Dekorasyon', 'slug' => 'dekorasyon']);

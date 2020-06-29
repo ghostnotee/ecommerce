@@ -9,7 +9,7 @@ class HomePageController extends Controller
 {
     public function index()
     {
-        $categories = Category::all()->take(8);
+        $categories = Category::whereRaw('up_id is null')->take(8)->get();
         return view('homepage', compact('categories'));
     }
 }
