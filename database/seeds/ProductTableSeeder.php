@@ -2,6 +2,7 @@
 
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Faker\Generator;
 
@@ -13,8 +14,10 @@ class ProductTableSeeder extends Seeder
      * @param $faker
      * @return void
      */
-    public function run($faker)
+    public function run(Generator $faker)
     {
+        Schema::disableForeignKeyConstraints();
+
         Product::truncate();
 
         for ($i = 0; $i < 30; $i++) {
@@ -25,5 +28,6 @@ class ProductTableSeeder extends Seeder
                 'description' => $faker->sentence(20),
                 'price' => $faker->randomfloat(3, 1, 20)]);
         }
+        Schema::enableForeignKeyConstraints();
     }
 }

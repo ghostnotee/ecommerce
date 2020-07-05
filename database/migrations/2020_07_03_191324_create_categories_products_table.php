@@ -15,11 +15,11 @@ class CreateCategoriesProductsTable extends Migration
     {
         Schema::create('categories_products', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id')->unsigned();
-            $table->integer('product_id')->unsigned();
+            /*$table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('product_id')->unsigned();*/
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
         });
     }
 
