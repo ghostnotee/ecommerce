@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CategoryTableSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class CategoryTableSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+
         DB::table('categories')->truncate();
 
         $upId = DB::table('categories')->insertGetId(['category_name' => 'Elektronik', 'slug' => 'elektronik']);
@@ -33,5 +36,7 @@ class CategoryTableSeeder extends Seeder
         DB::table('categories')->insert(['category_name' => 'Kişisel Bakım', 'slug' => 'kisisel-bakım']);
         DB::table('categories')->insert(['category_name' => 'Giyim ve Moda', 'slug' => 'giyim-moda']);
         DB::table('categories')->insert(['category_name' => 'Anne ve Çocuk', 'slug' => 'anne-cocuk']);
+
+        Schema::enableForeignKeyConstraints();
     }
 }
