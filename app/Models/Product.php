@@ -15,4 +15,9 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Category', 'categories_products');
     }
+
+    public function details()
+    {
+        return $this->hasOne('App\Models\ProductDetails', 'product_id');
+    }
 }
