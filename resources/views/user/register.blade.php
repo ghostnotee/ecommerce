@@ -7,15 +7,29 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Kaydol</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="#">
-
-                            <div class="form-group has-error">
-                                <label for="name" class="col-md-4 control-label">Kullanıcı Adı</label>
+                        <form class="form-horizontal" role="form" method="POST" action="{{route('user.register')}}">
+                            @csrf
+                            <div class="form-group">
+                                <label for="first_name" class="col-md-4 control-label">Ad</label>
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
-                                    <span class="help-block">
-                                        <strong>Kullanıcı adı boş bırakılamaz</strong>
-                                    </span>
+                                    <input id="first_name" type="text" class="form-control" name="first_name" value=""
+                                           required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last_name" class="col-md-4 control-label">Soyad</label>
+                                <div class="col-md-6">
+                                    <input id="last_name" type="text" class="form-control" name="last_name" value=""
+                                           required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user_name" class="col-md-4 control-label">Kulanıcı Adı</label>
+                                <div class="col-md-6">
+                                    <input id="user_name" type="text" class="form-control" name="user_name" value=""
+                                           required autofocus>
                                 </div>
                             </div>
 
@@ -36,7 +50,8 @@
                             <div class="form-group">
                                 <label for="password-confirm" class="col-md-4 control-label">Şifre (Tekrar)</label>
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                    <input id="password-confirm" type="password" class="form-control"
+                                           name="password_confirmation" required>
                                 </div>
                             </div>
 
