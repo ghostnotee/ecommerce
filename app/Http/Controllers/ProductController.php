@@ -20,7 +20,7 @@ class ProductController extends Controller
         $products = Product::where('product_name', 'like', "%$lookFor%")
             ->orWhere('description', 'like', "%$lookFor%")
             ->get();
-
+        // request stored in the session.
         $request->flash();
         return view('searchresult', compact('products'));
     }
