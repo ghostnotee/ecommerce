@@ -30,8 +30,8 @@
                 <div class="products bg-content">
                     @if(count($products)>0)
                         Sırala
-                        <a href="#" class="btn btn-default">Çok Satanlar</a>
-                        <a href="#" class="btn btn-default">Yeni Ürünler</a>
+                        <a href="?order=mostselling" class="btn btn-default">Çok Satanlar</a>
+                        <a href="?order=newproduct" class="btn btn-default">Yeni Ürünler</a>
                         <hr>
                     @endif
                     <div class="row">
@@ -48,6 +48,7 @@
                             </div>
                         @endforeach
                     </div>
+                    {{request()->has('order') ? $products->appends(['order'=>request('order')])->links() : $products->links()}}
                 </div>
             </div>
         </div>

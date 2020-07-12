@@ -13,4 +13,17 @@ class ProductController extends Controller
         $categories = $product->categories()->distinct()->get();
         return view('product', compact('product', 'categories'));
     }
+
+    public function search(Request $request)
+    {
+        $lookFor = request()->input('search');
+        $products = Product::where('product_name', 'like', "%$lookFor%")
+            ->orWhere('description', 'like', "%$lookFor%")
+            ->paginate(3);
+            //->simplepaginate(2);
+
+        // request stored in the session.
+        $request->flash();
+        return view('searchresult', compact('products'));
+    }
 }
