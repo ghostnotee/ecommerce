@@ -19,7 +19,9 @@ class ProductController extends Controller
         $lookFor = request()->input('search');
         $products = Product::where('product_name', 'like', "%$lookFor%")
             ->orWhere('description', 'like', "%$lookFor%")
-            ->get();
+            ->paginate(3);
+            //->simplepaginate(2);
+
         // request stored in the session.
         $request->flash();
         return view('searchresult', compact('products'));

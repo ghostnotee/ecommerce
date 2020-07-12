@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="#">Anasayfa</a></li>
+            <li><a href="{{route('homepage')}}">Anasayfa</a></li>
             @foreach($categories as $category)
                 <li><a href="{{route('category',$category->slug)}}">{{$category->category_name}}</a></li>
             @endforeach
@@ -35,7 +35,6 @@
                     <p><a href="#" class="btn btn-theme">Sepete Ekle</a></p>
                 </div>
             </div>
-
             <div>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#t1" data-toggle="tab">Ürün Açıklaması</a></li>
@@ -50,7 +49,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

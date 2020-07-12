@@ -16,6 +16,7 @@ Route::get('/', 'HomePageController@index')->name('homepage');
 Route::get('/category/{slug_categoryname}', 'CategoryController@index')->name('category');
 Route::get('/product/{slug_productname}', 'ProductController@index')->name('product');
 Route::post('/search', 'ProductController@search')->name('product_search');
+Route::get('/search', 'ProductController@search')->name('product_search');
 Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart');
 Route::get('/payment', 'PaymentController@index')->name('payment');
 Route::get('/orders', 'OrderController@index')->name('orders');
