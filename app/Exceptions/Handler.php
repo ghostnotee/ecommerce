@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Facade\FlareClient\Http\Exceptions\NotFound;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Session\TokenMismatchException;
 use Throwable;
 
 class Handler extends ExceptionHandler
