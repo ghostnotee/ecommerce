@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\UserRegisterMail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -16,14 +17,32 @@ class UserController extends Controller
         return view('user.signin');
     }
 
+    public function signin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, true)) {
+            request()->session()->regenerate();
+            return redirect()->intended('/');
+        } else {
+            $errors = ['email' => 'Hatalı Giriş'];
+            return back()->withErrors($errors);
+        }
+    }
+
     public function registerForm()
     {
         return view('user.register');
     }
 
-    public function register()
+    public function register(Request $request)
     {
-        $this->validate(request(), [
+        $request->validate([
             'first_name' => 'required|max:30',
             'last_name' => 'required|max:50',
             'email' => 'required|email|unique:users',

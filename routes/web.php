@@ -24,6 +24,7 @@ Route::get('/orderdetails/{id}', 'OrderController@orderDetails')->name('orderdat
 
 Route::group(['prefix' => '/user'], function () {
     Route::get('/signin', 'UserController@signInForm')->name('user.signin');
+    Route::post('/signin', 'UserController@signin');
     Route::get('/register', 'UserController@registerForm')->name('user.register');
     Route::post('/register', 'UserController@register');
     Route::get('/activate/{activation_key}', 'UserController@activate')->name('useractivate');
