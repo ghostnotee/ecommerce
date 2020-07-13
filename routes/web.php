@@ -28,3 +28,8 @@ Route::group(['prefix' => '/user'], function () {
     Route::post('/register', 'UserController@register');
 });
 
+//For test
+Route::get('/test/mail', function () {
+    $user = \App\Models\User::find(1);
+    return new App\Mail\UserRegisterMail($user);
+});
