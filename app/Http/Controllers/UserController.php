@@ -46,4 +46,21 @@ class UserController extends Controller
 
         return redirect()->route('homepage');
     }
+
+    public function activate($activationKey)
+    {
+        $user = User::where('activation_key', $activationKey)->first();
+        if (!is_null($user)) {
+            $user->activation_key = null;
+            $user->is_active = 1;
+            $user->save();
+            return redirect()->to('/')
+                ->with('message', 'Mail adresi doğrulandı.')
+                ->with('message_type', 'success');
+        } else {
+            return redirect()->to('/')
+                ->with('message', 'Mail adresi doğrulanmış')
+                ->with('message_type', 'warning');
+        }
+    }
 }
