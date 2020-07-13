@@ -12,6 +12,11 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest')->except('signout');
+    }
+
     public function signInForm()
     {
         return view('user.signin');
@@ -30,9 +35,17 @@ class UserController extends Controller
             request()->session()->regenerate();
             return redirect()->intended('/');
         } else {
-            $errors = ['email' => 'Hatalı Giriş'];
+            $errors = ['email' => 'Hatalı Oluştu'];
             return back()->withErrors($errors);
         }
+    }
+
+    public function signout()
+    {
+        Auth::logout();
+        request()->session()->flush();
+        request()->session()->regenerate();
+        return redirect()->route('homepage');
     }
 
     public function registerForm()
