@@ -17,7 +17,12 @@ Route::get('/category/{slug_categoryname}', 'CategoryController@index')->name('c
 Route::get('/product/{slug_productname}', 'ProductController@index')->name('product');
 Route::post('/search', 'ProductController@search')->name('product_search');
 Route::get('/search', 'ProductController@search')->name('product_search');
-Route::get('/shoppingcart', 'ShoppingCartController@index')->name('shoppingcart');
+
+Route::group(['prefix' => '/shoppingcart'], function () {
+    Route::get('/', 'ShoppingCartController@index')->name('shoppingcart');
+    Route::post('/addtocart','ShoppingCartController@addtocart')->name('shoppingcart.addtocart');
+});
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment', 'PaymentController@index')->name('payment');

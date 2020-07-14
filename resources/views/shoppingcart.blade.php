@@ -4,6 +4,8 @@
     <div class="container">
         <div class="bg-content">
             <h2>Sepet</h2>
+            @include('layouts.partials.alert')
+
             <table class="table table-bordererd table-hover">
                 <tr>
                     <th>Ürün</th>
