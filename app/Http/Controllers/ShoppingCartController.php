@@ -21,4 +21,12 @@ class ShoppingCartController extends Controller
             ->with('message_type', 'success')
             ->with('message', 'Ürün sepete eklendi.');
     }
+
+    public function removefromcart($rowId)
+    {
+        Cart::remove($rowId);
+        return redirect()->route('shoppingcart')
+            ->with('message_type', 'success')
+            ->with('message', 'Ürün sepetten kaldırıldı.');
+    }
 }

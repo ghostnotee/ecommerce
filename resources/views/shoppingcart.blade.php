@@ -23,7 +23,13 @@
                             </td>
                             <td>
                                 <a href="{{route('product',$productCartItem->options->slug)}}">
-                                    {{$productCartItem->name}}</a>
+                                    {{$productCartItem->name}}
+                                </a>
+                                <form action="{{route('shoppingcart.removefromcart',$productCartItem->rowId)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" class="btn btn-danger btn-xs" value="Sepetten Kaldır">
+                                </form>
                             </td>
                             <td>{{$productCartItem->price}} ₺</td>
                             <td>

@@ -20,7 +20,8 @@ Route::get('/search', 'ProductController@search')->name('product_search');
 
 Route::group(['prefix' => '/shoppingcart'], function () {
     Route::get('/', 'ShoppingCartController@index')->name('shoppingcart');
-    Route::post('/addtocart','ShoppingCartController@addtocart')->name('shoppingcart.addtocart');
+    Route::post('/addtocart', 'ShoppingCartController@addtocart')->name('shoppingcart.addtocart');
+    Route::delete('/removefromcart/{rowId}', 'ShoppingCartController@removefromcart')->name('shoppingcart.removefromcart');
 });
 
 
