@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Validation\Validator;
 
 
 class ShoppingCartController extends Controller
@@ -36,5 +37,25 @@ class ShoppingCartController extends Controller
         return redirect()->route('shoppingcart')
             ->with('message_type', 'success')
             ->with('message', 'Sepet boşaltıldı!');
+    }
+
+    public function updatethecart($rowId)
+    {
+
+        /*$validator = Validator::make(request()->all(), [
+            'quantity' => 'required|numeric|between:1,5'
+        ]);
+
+        if ($validator->fails()) {
+            session()->flash('message_type', 'danger');
+            session()->flash('message', 'Adet bilgisi güncellenemedi.');
+            return response()->json(['success' => false]);
+        }*/
+
+        Cart::update($rowId, request('quantity'));
+
+        session()->flash('message_type', 'success');
+        session()->flash('message', 'Adet bilgisi güncellendi.');
+        return response()->json(['success' => true]);
     }
 }

@@ -34,9 +34,15 @@
                             </td>
                             <td>{{$productCartItem->price}} ₺</td>
                             <td>
-                                <a href="#" class="btn btn-xs btn-default">-</a>
+                                <a href="#" class="btn btn-xs btn-default product-number-decrease"
+                                   data-id="{{$productCartItem->rowId}}" data-quantity="{{$productCartItem->qty-1}}">
+                                    -
+                                </a>
                                 <span style="padding: 10px 20px">{{$productCartItem->qty}}</span>
-                                <a href="#" class="btn btn-xs btn-default">+</a>
+                                <a href="#" class="btn btn-xs btn-default product-number-increase"
+                                   data-id="{{$productCartItem->rowId}}" data-quantity="{{$productCartItem->qty+1}}">
+                                    +
+                                </a>
                             </td>
                             <td>{{$productCartItem->subtotal }} ₺</td>
                             <td class="text-right">
@@ -57,12 +63,12 @@
                         <th class="text-right">{{Cart::total()}} ₺</th>
                     </tr>
                 </table>
-                    <form action="{{route('shoppingcart.emptythecart')}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" class="btn btn-info pull-left" value="Sepeti Boşalt">
-                    </form>
-                    <a href="#" class="btn btn-success pull-right btn-lg">Ödeme Yap</a>
+                <form action="{{route('shoppingcart.emptythecart')}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" class="btn btn-info pull-left" value="Sepeti Boşalt">
+                </form>
+                <a href="#" class="btn btn-success pull-right btn-lg">Ödeme Yap</a>
             @else
                 <p>Sepetinizde ürün yok!</p>
             @endif
@@ -70,4 +76,32 @@
 
         </div>
     </div>
+@endsection
+@section('footer')
+    <script>
+        $(function () {
+            setTimeout(function () {
+                $('.alert').slideUp("slow");
+            }, 3000);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('.product-number-increase, .product-number-decrease').on('click', function () {
+                var id = $(this).attr('data-id');
+                var quantity = $(this).attr('data-quantity');
+                $.ajax({
+                    type: 'PATCH',
+                    url: '{{url('shoppingcart/updatethecart')}}/' + id,
+                    data: {quantity: quantity},
+                    success: function () {
+                        window.location.href = '{{route('shoppingcart')}}';
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

@@ -23,6 +23,7 @@ Route::group(['prefix' => '/shoppingcart'], function () {
     Route::post('/addtocart', 'ShoppingCartController@addtocart')->name('shoppingcart.addtocart');
     Route::delete('/removefromcart/{rowId}', 'ShoppingCartController@removefromcart')->name('shoppingcart.removefromcart');
     Route::delete('/emptythecart', 'ShoppingCartController@emptythecart')->name('shoppingcart.emptythecart');
+    Route::patch('/updatethecart/{rowId}', 'ShoppingCartController@updatethecart')->name('shoppingcart.updatethecart');
 });
 
 
