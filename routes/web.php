@@ -22,6 +22,7 @@ Route::group(['prefix' => '/shoppingcart'], function () {
     Route::get('/', 'ShoppingCartController@index')->name('shoppingcart');
     Route::post('/addtocart', 'ShoppingCartController@addtocart')->name('shoppingcart.addtocart');
     Route::delete('/removefromcart/{rowId}', 'ShoppingCartController@removefromcart')->name('shoppingcart.removefromcart');
+    Route::delete('/emptythecart', 'ShoppingCartController@emptythecart')->name('shoppingcart.emptythecart');
 });
 
 

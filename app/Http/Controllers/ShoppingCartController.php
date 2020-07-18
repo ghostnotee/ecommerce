@@ -29,4 +29,12 @@ class ShoppingCartController extends Controller
             ->with('message_type', 'success')
             ->with('message', 'Ürün sepetten kaldırıldı.');
     }
+
+    public function emptythecart()
+    {
+        Cart::destroy();
+        return redirect()->route('shoppingcart')
+            ->with('message_type', 'success')
+            ->with('message', 'Sepet boşaltıldı!');
+    }
 }

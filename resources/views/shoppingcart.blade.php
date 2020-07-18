@@ -25,7 +25,8 @@
                                 <a href="{{route('product',$productCartItem->options->slug)}}">
                                     {{$productCartItem->name}}
                                 </a>
-                                <form action="{{route('shoppingcart.removefromcart',$productCartItem->rowId)}}" method="post">
+                                <form action="{{route('shoppingcart.removefromcart',$productCartItem->rowId)}}"
+                                      method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" class="btn btn-danger btn-xs" value="Sepetten Kaldır">
@@ -56,10 +57,12 @@
                         <th class="text-right">{{Cart::total()}} ₺</th>
                     </tr>
                 </table>
-                <div>
-                    <a href="#" class="btn btn-info pull-left">Sepeti Boşalt</a>
+                    <form action="{{route('shoppingcart.emptythecart')}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" class="btn btn-info pull-left" value="Sepeti Boşalt">
+                    </form>
                     <a href="#" class="btn btn-success pull-right btn-lg">Ödeme Yap</a>
-                </div>
             @else
                 <p>Sepetinizde ürün yok!</p>
             @endif
