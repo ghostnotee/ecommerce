@@ -9,5 +9,6 @@ class ShoppingCart extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'shoppingcarts';
     protected $guarded = [];
 }

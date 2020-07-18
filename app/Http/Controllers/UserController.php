@@ -35,7 +35,7 @@ class UserController extends Controller
             request()->session()->regenerate();
             return redirect()->intended('/');
         } else {
-            $errors = ['email' => 'Hatalı Oluştu'];
+            $errors = ['email' => 'Hata Oluştu'];
             return back()->withErrors($errors);
         }
     }

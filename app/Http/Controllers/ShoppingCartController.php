@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ShoppingCart;
+use App\Models\ShoppingCartProduct;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +19,24 @@ class ShoppingCartController extends Controller
     public function addtocart()
     {
         $product = Product::find(request('id'));
-        Cart::add($product->id, $product->product_name, 1, $product->price, 0, ['slug' => $product->slug]);
+        $cartItem = Cart::add($product->id, $product->product_name, 1, $product->price, 0, ['slug' => $product->slug]);
+
+        if (auth()->check()) {
+            $activeCartId = session('activeCartId');
+            if (!isset($activeCartId)) {
+                $activeCart = ShoppingCart::create([
+                    'user_id' => auth()->id()
+                ]);
+                $activeCartId = $activeCart->id;
+                session()->put('activeCartId', $activeCartId);
+            }
+            ShoppingCartProduct::updateOrCreate(
+            // ilk parametre varmı yokmu kontrolü yapıyor.
+                ['shoppingcart_id' => $activeCartId, 'product_id' => $product->id],
+                ['quantity' => $cartItem->qty, 'price' => $product->price, 'status' => 'Beklemede']
+            );
+        }
+
         return redirect()->route('shoppingcart')
             ->with('message_type', 'success')
             ->with('message', 'Ürün sepete eklendi.');
