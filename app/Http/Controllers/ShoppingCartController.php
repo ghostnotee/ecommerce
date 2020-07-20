@@ -44,6 +44,11 @@ class ShoppingCartController extends Controller
 
     public function removefromcart($rowId)
     {
+        if (auth()->check()) {
+            $activeCartId = session('activeCartId');
+            $cartItem = Cart::get($rowId);
+            ShoppingCartProduct::where('shoppingcart_id', $activeCartId)->where('product_id', $cartItem->id)->delete();
+        }
         Cart::remove($rowId);
         return redirect()->route('shoppingcart')
             ->with('message_type', 'success')
@@ -52,6 +57,10 @@ class ShoppingCartController extends Controller
 
     public function emptythecart()
     {
+        if (auth()->check()) {
+            $activeCartId = session('activeCartId');
+            ShoppingCartProduct::where('shoppingcart_id', $activeCartId)->delete();
+        }
         Cart::destroy();
         return redirect()->route('shoppingcart')
             ->with('message_type', 'success')
@@ -62,13 +71,27 @@ class ShoppingCartController extends Controller
     {
 
         $validator = Validator::make(request()->all(), [
-            'quantity' => 'required|numeric|between:1,5'
+            'quantity' => 'required|numeric|between:0,5'
         ]);
 
         if ($validator->fails()) {
             session()->flash('message_type', 'danger');
             session()->flash('message', 'Adet bilgisi güncellenemedi.');
             return response()->json(['success' => false]);
+        }
+
+        if (auth()->check()) {
+            $activeCartId = session('activeCartId');
+            $cartItem = Cart::get($rowId);
+
+            if (request('quantity') == 0)
+                ShoppingCartProduct::where('shoppingcart_id', $activeCartId)
+                    ->where('product_id', $cartItem->id)
+                    ->delete();
+            else
+                ShoppingCartProduct::where('shoppingcart_id', $activeCartId)
+                    ->where('product_id', $cartItem->id)
+                    ->update(['quantity' => request('quantity')]);
         }
 
         Cart::update($rowId, request('quantity'));
