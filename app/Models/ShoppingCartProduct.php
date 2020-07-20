@@ -11,4 +11,9 @@ class ShoppingCartProduct extends Model
 
     protected $table = 'shoppingcart_products';
     protected $guarded = [];
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 }
