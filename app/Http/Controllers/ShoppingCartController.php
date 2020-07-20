@@ -44,6 +44,11 @@ class ShoppingCartController extends Controller
 
     public function removefromcart($rowId)
     {
+        if (auth()->check()) {
+            $activeCartId = session('activeCartId');
+            $cartItem = Cart::get($rowId);
+            ShoppingCartProduct::where('shoppingcart_id', $activeCartId)->where('product_id', $cartItem->id)->delete();
+        }
         Cart::remove($rowId);
         return redirect()->route('shoppingcart')
             ->with('message_type', 'success')
@@ -52,6 +57,10 @@ class ShoppingCartController extends Controller
 
     public function emptythecart()
     {
+        if (auth()->check()) {
+            $activeCartId = session('activeCartId');
+            ShoppingCartProduct::where('shoppingcart_id', $activeCartId)->delete();
+        }
         Cart::destroy();
         return redirect()->route('shoppingcart')
             ->with('message_type', 'success')
