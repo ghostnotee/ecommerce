@@ -11,4 +11,9 @@ class ShoppingCart extends Model
 
     protected $table = 'shoppingcarts';
     protected $guarded = [];
+
+    public function order()
+    {
+        return $this->hasOne('App\Models\Order');
+    }
 }
