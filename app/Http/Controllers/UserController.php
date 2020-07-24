@@ -6,6 +6,7 @@ use App\Mail\UserRegisterMail;
 use App\Models\ShoppingCart;
 use App\Models\ShoppingCartProduct;
 use App\Models\User;
+use App\Models\UserDetail;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,6 +104,8 @@ class UserController extends Controller
             'activation_key' => Str::random(60),
             'is_active' => 0
         ]);
+
+        $user->userdetail()->save(new UserDetail());
 
         Mail::to(request('email'))->send(new UserRegisterMail($user));
 

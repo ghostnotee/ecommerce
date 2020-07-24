@@ -11,6 +11,11 @@ class User extends Authenticatable
     use SoftDeletes;
     use Notifiable;
 
+    public function userDetail()
+    {
+        return $this->hasOne('App\Models\UserDetail');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
