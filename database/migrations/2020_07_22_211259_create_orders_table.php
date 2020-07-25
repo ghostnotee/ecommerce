@@ -16,8 +16,13 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shoppingcart_id')->constrained('shoppingcarts')->onDelete('cascade');
-            $table->decimal('order_amount', 5, 4);
+            $table->decimal('order_amount', 10, 4);
             $table->string('status', 30)->nullable();
+            $table->string('first_name', 50)->nullable();
+            $table->string('last_name', 50)->nullable();
+            $table->string('address', 200)->nullable();
+            $table->string('phone', 15)->nullable();
+            $table->string('other_phone', 15)->nullable();
             $table->string('bank', 20)->nullable();
             $table->integer('how_many_installments')->nullable();
             $table->timestamps();

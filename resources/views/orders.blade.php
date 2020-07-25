@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('title','Siparişler Sayfası')
 @section('content')
+    @include('layouts.partials.alert')
     <div class="container">
         <div class="bg-content">
             <h2>Siparişler</h2>

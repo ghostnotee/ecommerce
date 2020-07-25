@@ -38,7 +38,11 @@ class UserController extends Controller
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
 
-            $activeCartId = ShoppingCart::firstOrCreate(['user_id' => Auth::id()])->id;
+            $activeCartId = ShoppingCart::activeCartId();
+            if (is_null($activeCartId)) {
+                $activeCart = ShoppingCart::create(['user_id' => Auth::id()]);
+                $activeCartId = $activeCart->id;
+            }
             session()->put('activeCartId', $activeCartId);
 
             if (Cart::count() > 0) {

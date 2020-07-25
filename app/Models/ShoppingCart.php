@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ShoppingCart extends Model
 {
@@ -15,5 +17,18 @@ class ShoppingCart extends Model
     public function order()
     {
         return $this->hasOne('App\Models\Order');
+    }
+
+    public static function activeCartId()
+    {
+        $activeCart = DB::table('shoppingcarts as s')
+            ->leftJoin('orders as o', 'o.shoppingcart_id', '=', 's.id')
+            ->where('s.user_id', Auth::id())
+            ->whereRaw('o.id is null')
+            ->orderByDesc('s.created_at')
+            ->select('s.id')
+            ->first();
+
+        if (!is_null($activeCart)) return $activeCart->id;
     }
 }
