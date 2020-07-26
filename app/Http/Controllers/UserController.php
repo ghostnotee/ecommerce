@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\UserRegisterMail;
 use App\Models\ShoppingCart;
-use App\Models\ShoppingCartProduct;
+use App\Models\ShoppingcartProduct;
 use App\Models\User;
 use App\Models\UserDetail;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -38,12 +38,16 @@ class UserController extends Controller
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
 
-            $activeCartId = ShoppingCart::firstOrCreate(['user_id' => Auth::id()])->id;
+            $activeCartId = ShoppingCart::activeCartId();
+            if (is_null($activeCartId)) {
+                $activeCart = ShoppingCart::create(['user_id' => Auth::id()]);
+                $activeCartId = $activeCart->id;
+            }
             session()->put('activeCartId', $activeCartId);
 
             if (Cart::count() > 0) {
                 foreach (Cart::content() as $cartItem) {
-                    ShoppingCartProduct::updateOrCreate(
+                    ShoppingcartProduct::updateOrCreate(
                         ['shoppingcart_id' => $activeCartId, 'product_id' => $cartItem->id],
                         ['quantity' => $cartItem->qty, 'price' => $cartItem->price, 'status' => 'Beklemede']
                     );
@@ -52,7 +56,7 @@ class UserController extends Controller
 
             Cart::destroy();
 
-            $cartProducts = ShoppingCartProduct::with('product')
+            $cartProducts = ShoppingcartProduct::with('product')
                 ->where('shoppingcart_id', $activeCartId)->get();
 
             foreach ($cartProducts as $cartProduct) {

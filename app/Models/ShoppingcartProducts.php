@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ShoppingCart extends Model
+class ShoppingcartProducts extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'shoppingcarts';
     protected $guarded = [];
 
-    public function order()
+    public function product()
     {
-        return $this->hasOne('App\Models\Order');
+        return $this->belongsTo('App\Models\Product');
     }
 }

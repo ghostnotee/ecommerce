@@ -37299,3 +37299,14 @@ module.exports = __webpack_require__(/*! /var/www/ecommerce/resources/sass/app.s
 /***/ })
 
 /******/ });
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(function () {
+    setTimeout(function () {
+        $('.alert').slideUp("slow");
+    }, 3000);

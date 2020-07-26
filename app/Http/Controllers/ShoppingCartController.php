@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\ShoppingCart;
-use App\Models\ShoppingCartProduct;
+use App\Models\Shoppingcart;
+use App\Models\Shoppingcartart;
+use App\Models\ShoppingcartProduct;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,13 +25,13 @@ class ShoppingCartController extends Controller
         if (auth()->check()) {
             $activeCartId = session('activeCartId');
             if (!isset($activeCartId)) {
-                $activeCart = ShoppingCart::create([
+                $activeCart = Shoppingcart::create([
                     'user_id' => auth()->id()
                 ]);
                 $activeCartId = $activeCart->id;
                 session()->put('activeCartId', $activeCartId);
             }
-            ShoppingCartProduct::updateOrCreate(
+            ShoppingcartProduct::updateOrCreate(
             // ilk parametre varmı yokmu kontrolü yapıyor.
                 ['shoppingcart_id' => $activeCartId, 'product_id' => $product->id],
                 ['quantity' => $cartItem->qty, 'price' => $product->price, 'status' => 'Beklemede']
@@ -47,7 +48,7 @@ class ShoppingCartController extends Controller
         if (auth()->check()) {
             $activeCartId = session('activeCartId');
             $cartItem = Cart::get($rowId);
-            ShoppingCartProduct::where('shoppingcart_id', $activeCartId)->where('product_id', $cartItem->id)->delete();
+            ShoppingcartProduct::where('shoppingcart_id', $activeCartId)->where('product_id', $cartItem->id)->delete();
         }
         Cart::remove($rowId);
         return redirect()->route('shoppingcart')
@@ -59,7 +60,7 @@ class ShoppingCartController extends Controller
     {
         if (auth()->check()) {
             $activeCartId = session('activeCartId');
-            ShoppingCartProduct::where('shoppingcart_id', $activeCartId)->delete();
+            ShoppingcartProduct::where('shoppingcart_id', $activeCartId)->delete();
         }
         Cart::destroy();
         return redirect()->route('shoppingcart')
@@ -85,11 +86,11 @@ class ShoppingCartController extends Controller
             $cartItem = Cart::get($rowId);
 
             if (request('quantity') == 0)
-                ShoppingCartProduct::where('shoppingcart_id', $activeCartId)
+                ShoppingcartProduct::where('shoppingcart_id', $activeCartId)
                     ->where('product_id', $cartItem->id)
                     ->delete();
             else
-                ShoppingCartProduct::where('shoppingcart_id', $activeCartId)
+                ShoppingcartProduct::where('shoppingcart_id', $activeCartId)
                     ->where('product_id', $cartItem->id)
                     ->update(['quantity' => request('quantity')]);
         }

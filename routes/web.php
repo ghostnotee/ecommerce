@@ -26,11 +26,12 @@ Route::group(['prefix' => '/shoppingcart'], function () {
     Route::patch('/updatethecart/{rowId}', 'ShoppingCartController@updatethecart')->name('shoppingcart.updatethecart');
 });
 
+Route::get('/payment', 'PaymentController@index')->name('payment');
+Route::post('/payment', 'PaymentController@paying')->name('paying');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/payment', 'PaymentController@index')->name('payment');
     Route::get('/orders', 'OrderController@index')->name('orders');
-    Route::get('/orderdetails/{id}', 'OrderController@orderDetails')->name('orderdateils');
+    Route::get('/orderdetails/{id}', 'OrderController@orderDetails')->name('orderdetails');
 });
 
 Route::group(['prefix' => '/user'], function () {
