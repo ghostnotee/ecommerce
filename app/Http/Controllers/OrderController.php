@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,13 +22,10 @@ class OrderController extends Controller
 
     public function orderDetails($id)
     {
-        $orderDetail = Order::with('shoppingcart.shoppingcart_products')
-            ->whereHas('shoppingcart', function ($query) {
-                $query->where('user_id', Auth::id());
-            })
-            ->where('order.id', $id)
+        $order = Order::with('shoppingcart.shoppingcartProducts')
+            ->where('id',$id)
             ->firstOrFail();
 
-        return view('orderdetails');
+        return view('orderdetails',compact('order'));
     }
 }

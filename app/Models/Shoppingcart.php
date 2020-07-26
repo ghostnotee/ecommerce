@@ -7,16 +7,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ShoppingCart extends Model
+class Shoppingcart extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'shoppingcarts';
     protected $guarded = [];
 
     public function order()
     {
         return $this->hasOne('App\Models\Order');
+    }
+
+    public function shoppingcartProducts()
+    {
+        return $this->hasMany('App\Models\ShoppingcartProducts');
     }
 
     public static function activeCartId()
