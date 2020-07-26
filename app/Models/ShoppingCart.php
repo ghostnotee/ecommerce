@@ -31,4 +31,12 @@ class ShoppingCart extends Model
 
         if (!is_null($activeCart)) return $activeCart->id;
     }
+
+    public function shoppingcartProductQuantity()
+    {
+        return DB::table('shoppingcart_products')
+            ->where('shoppingcart_id', $this->id)
+            ->whereRaw('deleted_at is null')
+            ->sum('quantity');
+    }
 }
