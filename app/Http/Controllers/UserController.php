@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\UserRegisterMail;
 use App\Models\ShoppingCart;
-use App\Models\ShoppingcartProduct;
+use App\Models\ShoppingcartProducts;
 use App\Models\User;
 use App\Models\UserDetail;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -47,7 +47,7 @@ class UserController extends Controller
 
             if (Cart::count() > 0) {
                 foreach (Cart::content() as $cartItem) {
-                    ShoppingcartProduct::updateOrCreate(
+                    ShoppingcartProducts::updateOrCreate(
                         ['shoppingcart_id' => $activeCartId, 'product_id' => $cartItem->id],
                         ['quantity' => $cartItem->qty, 'price' => $cartItem->price, 'status' => 'Beklemede']
                     );
@@ -56,7 +56,7 @@ class UserController extends Controller
 
             Cart::destroy();
 
-            $cartProducts = ShoppingcartProduct::with('product')
+            $cartProducts = ShoppingcartProducts::with('product')
                 ->where('shoppingcart_id', $activeCartId)->get();
 
             foreach ($cartProducts as $cartProduct) {
