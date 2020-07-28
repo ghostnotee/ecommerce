@@ -3,6 +3,8 @@
 @section('content')
     <div class="container">
         <div class="bg-content">
+            <a href="{{ route('orders') }}" class="btn btn-xs btn-primary">
+                <i class="glyphicon glyphicon-arrow-left"></i>Sparişlere dön.</a>
             <h2>Sipariş (SP-{{$order->id}})</h2>
             <table class="table table-bordered table-hover">
                 <tr>
@@ -13,10 +15,11 @@
                     <th>Durum</th>
                 </tr>
                 @foreach($order->shoppingcart->shoppingcartProducts as $shoppingcartProduct)
-
                     <tr>
                         <td style="width: 120px">
-                            <img src="http://via.placeholder.com/120x100?text=Ürün_Fotoğrafı">
+                            <a href="{{ route('product',$shoppingcartProduct->product->slug) }}">
+                                <img src="http://via.placeholder.com/120x100?text=Ürün_Fotoğrafı">
+                            </a>
                         </td>
                         <td>{{$shoppingcartProduct->product->product_name }}</td>
                         <td>{{$shoppingcartProduct->price}} ₺</td>
@@ -27,15 +30,15 @@
                 @endforeach
                 <tr>
                     <th colspan="4" class="text-right">Toplam Tutar</th>
-                    <th colspan="2">{{$order->amount}} ₺</th>
+                    <td colspan="2">{{$order->order_amount}} ₺</td>
                 </tr>
                 <tr>
                     <th colspan="4" class="text-right">Toplam Tutar (KDV'li)</th>
-                    <th colspan="2">{{$order->amount*((100+config('cart.tax'))/100)}} ₺</th>
+                    <td colspan="2">{{$order->order_amount * ((100+config('cart.tax'))/100)}} ₺</td>
                 </tr>
                 <tr>
                     <th colspan="4" class="text-right">Sipariş Durumu</th>
-                    <th colspan="2">{{$order->status}}</th>
+                    <td colspan="2">{{$order->status}}</td>
                 </tr>
             </table>
         </div>
