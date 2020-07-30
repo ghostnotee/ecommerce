@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserRegisterMail;
-use App\Models\ShoppingCart;
+use App\Models\Shoppingcart;
 use App\Models\ShoppingcartProducts;
 use App\Models\User;
 use App\Models\UserDetail;
@@ -38,9 +38,9 @@ class UserController extends Controller
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
 
-            $activeCartId = ShoppingCart::activeCartId();
+            $activeCartId = Shoppingcart::activeCartId();
             if (is_null($activeCartId)) {
-                $activeCart = ShoppingCart::create(['user_id' => Auth::id()]);
+                $activeCart = Shoppingcart::create(['user_id' => Auth::id()]);
                 $activeCartId = $activeCart->id;
             }
             session()->put('activeCartId', $activeCartId);
