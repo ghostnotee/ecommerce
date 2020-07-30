@@ -12,14 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::namespace('Admin')->prefix('admin')->group(function (){
-    Route::get('/', function () {
-        return 'Admin';
-    });
-    Route::get('/signin', 'UserController@signInForm')->name('admin.signin');
-});
-
 Route::get('/', 'HomePageController@index')->name('homepage');
 Route::get('/category/{slug_categoryname}', 'CategoryController@index')->name('category');
 Route::get('/product/{slug_productname}', 'ProductController@index')->name('product');
