@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserRegisterMail;
-use App\Models\ShoppingCart;
+use App\Models\Shoppingcart;
 use App\Models\ShoppingcartProducts;
 use App\Models\User;
 use App\Models\UserDetail;
