@@ -18,6 +18,7 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
         return "Welcome to Admin Page";
     });
     Route::get('/signin', 'UserController@signInForm')->name('admin.signin');
+    Route::get('/homepage', 'HomepageController@index')->name('admin.homepage');
 });
 
 Route::get('/', 'HomePageController@index')->name('homepage');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="UTF-8">
     <title>@yield('title',config('app.name') . " | Yönetim")</title>
