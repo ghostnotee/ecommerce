@@ -38,7 +38,7 @@
                         </li>
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="#">Logout</a>
+                            <a href="{{ route('admin.logout') }}">Oturumu Kapat</a>
                         </li>
                     </ul>
                 </li>

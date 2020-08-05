@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Admin')->prefix('admin')->group(function () {
-    Route::get('/', function () {
-        return "Welcome to Admin Page";
-    });
-    Route::get('/signin', 'UserController@signInForm')->name('admin.signin');
+    Route::redirect('/', '/admin/signin');
+    Route::match(['get', 'post'], '/signin', 'UserController@signInForm')->name('admin.signin');
+    Route::get('/logout', 'UserController@logout')->name('admin.logout');
+    Route::middleware('admin')->get('/homepage', 'HomepageController@index')->name('admin.homepage');
 });
 
 Route::get('/', 'HomePageController@index')->name('homepage');
