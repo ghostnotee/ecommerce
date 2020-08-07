@@ -18,6 +18,16 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::match(['get', 'post'], '/signin', 'UserController@signInForm')->name('admin.signin');
     Route::get('/logout', 'UserController@logout')->name('admin.logout');
     Route::middleware('admin')->get('/homepage', 'HomepageController@index')->name('admin.homepage');
+
+    // /admin/user
+
+    Route::prefix('/user')->group(function () {
+        Route::match(['get', 'post'], '/', 'UserController@index')->name('admin.user');
+        Route::get('/create', 'UserController@form')->name('admin.user.create');
+        Route::get('/edit/{id}', 'UserController@form')->name('admin.user.edit');
+        Route::post('/save/{id?}', 'UserController@save')->name('admin.user.save');
+        Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
+    });
 });
 
 Route::get('/', 'HomePageController@index')->name('homepage');

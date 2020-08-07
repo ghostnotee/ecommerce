@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,5 +33,10 @@ class UserController extends Controller
     {
         Auth::guard('admin')->logout();
         return redirect()->route('admin.signin');
+    }
+
+    public function index(){
+
+        $usersList = User::orderByDesc('created_at')->paginate(8);
     }
 }
