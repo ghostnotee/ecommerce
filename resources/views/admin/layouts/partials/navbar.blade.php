@@ -20,10 +20,10 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="{{ route('admin.homepage') }}">Giriş</a>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="#">Ayarlar</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

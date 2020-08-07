@@ -57,7 +57,7 @@ Route::group(['prefix' => '/user'], function () {
     Route::post('/signin', 'UserController@signin');
     Route::get('/register', 'UserController@registerForm')->name('user.register');
     Route::post('/register', 'UserController@register');
-    Route::get('/activate/{activation_key}', 'UserController@activate')->name('useractivate');
+    Route::get('/activate/{activation_key}', 'UserController@activate')->name('user.activate');
     Route::post('/signout', 'UserController@signout')->name('user.signout');
 });
 

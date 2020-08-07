@@ -17,8 +17,14 @@ class UserController extends Controller
                 'password' => 'required'
             ]);
 
-            if (Auth::guard('admin')->attempt([
-                'email' => $request->email, 'password' => $request->password, 'is_admin' => 1], true)) {
+            $credentials = [
+                'email' => $request->email,
+                'password' => $request->password,
+                'is_active' => 1,
+                'is_admin' => 1
+            ];
+
+            if (Auth::guard('admin')->attempt($credentials, true)) {
 
                 return redirect()->route('admin.homepage');
             } else {
@@ -35,8 +41,9 @@ class UserController extends Controller
         return redirect()->route('admin.signin');
     }
 
-    public function index(){
-
+    public function index()
+    {
         $usersList = User::orderByDesc('created_at')->paginate(8);
+        return view('admin.user.index', compact('usersList'));
     }
 }

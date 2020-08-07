@@ -33,7 +33,7 @@ class UserController extends Controller
             'password' => 'required'
         ]);
 
-        $credentials = $request->only('email', 'password');
+        $credentials = ['email' => $request->email, 'password' => $request->password, 'is_active' => 1];
 
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
@@ -121,6 +121,7 @@ class UserController extends Controller
     public function activate($activationKey)
     {
         $user = User::where('activation_key', $activationKey)->first();
+
         if (!is_null($user)) {
             $user->activation_key = null;
             $user->is_active = 1;
