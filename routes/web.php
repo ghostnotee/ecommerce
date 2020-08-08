@@ -13,11 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Admin')->prefix('admin')->group(function () {
+Route::namespace('Admin')->prefix('/admin')->group(function () {
     Route::redirect('/', '/admin/signin');
     Route::match(['get', 'post'], '/signin', 'UserController@signInForm')->name('admin.signin');
     Route::get('/logout', 'UserController@logout')->name('admin.logout');
     Route::middleware('admin')->get('/homepage', 'HomepageController@index')->name('admin.homepage');
+
+    // /admin/user
+
+    Route::prefix('/user')->group(function () {
+        Route::match(['get', 'post'], '/', 'UserController@index')->name('admin.user');
+        Route::post('/create', 'UserController@form')->name('admin.user.create');
+        Route::get('/edit/{id}', 'UserController@form')->name('admin.user.edit');
+        Route::post('/save', 'UserController@save')->name('admin.user.save');
+        Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
+    });
 });
 
 Route::get('/', 'HomePageController@index')->name('homepage');
@@ -47,7 +57,7 @@ Route::group(['prefix' => '/user'], function () {
     Route::post('/signin', 'UserController@signin');
     Route::get('/register', 'UserController@registerForm')->name('user.register');
     Route::post('/register', 'UserController@register');
-    Route::get('/activate/{activation_key}', 'UserController@activate')->name('useractivate');
+    Route::get('/activate/{activation_key}', 'UserController@activate')->name('user.activate');
     Route::post('/signout', 'UserController@signout')->name('user.signout');
 });
 
