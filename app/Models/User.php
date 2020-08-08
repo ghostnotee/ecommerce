@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function userDetail()
     {
-        return $this->hasOne('App\Models\UserDetail');
+        return $this->hasOne('App\Models\UserDetail')->withDefault();
     }
 
     /**
@@ -62,8 +62,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'user_name', 'email', 'password', 'activation_key', 'is_active', 'is_admin',
-        'user_name'
+        'first_name', 'last_name', 'user_name', 'email', 'password', 'activation_key', 'is_active', 'is_admin'
     ];
 
     /**
