@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Admin')->prefix('admin')->group(function () {
+Route::namespace('Admin')->prefix('/admin')->group(function () {
     Route::redirect('/', '/admin/signin');
     Route::match(['get', 'post'], '/signin', 'UserController@signInForm')->name('admin.signin');
     Route::get('/logout', 'UserController@logout')->name('admin.logout');
@@ -23,9 +23,9 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 
     Route::prefix('/user')->group(function () {
         Route::match(['get', 'post'], '/', 'UserController@index')->name('admin.user');
-        Route::get('/create', 'UserController@form')->name('admin.user.create');
+        Route::post('/create', 'UserController@form')->name('admin.user.create');
         Route::get('/edit/{id}', 'UserController@form')->name('admin.user.edit');
-        Route::post('/save/{id?}', 'UserController@save')->name('admin.user.save');
+        Route::post('/save', 'UserController@save')->name('admin.user.save');
         Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
     });
 });
