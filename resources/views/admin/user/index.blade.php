@@ -2,15 +2,26 @@
 @section('title','Kullanıcı Yönetimi')
 @section('content')
 
-    <h1 class="page-header">Kullanıcı Yönetimi</h1>
-
-    <h3 class="sub-header">
+    <h3 class="page-header">Kullanıcı Yönetimi</h3>
+    <h4 class="sub-header">Kullanıcı Listesi</h4>
+    <div class="well">
         <div class="btn-group pull-right">
-            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Yeni Kullanıcı</a>
+            <a href="{{ route('admin.user.create') }}" class="btn btn-primary ">Yeni Kullanıcı</a>
         </div>
-        Kullanıcı Listesi
-    </h3>
+        <form method="post" action="{{ route('admin.user') }}" class="form-inline">
+            @csrf
+            <div class="form-group">
+                <label for="search_value">Ara</label>
+                <input type="text" class="form-control form-control-sm" name="search_value" id="search_value"
+                       placeholder="Ad, Soyad, Email..." value="{{ old('search_value') }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Ara</button>
+            <a href="{{ route('admin.user') }}" class="btn btn-warning">Temizle</a>
+        </form>
+    </div>
+
     @include('layouts.partials.alert')
+
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -57,6 +68,7 @@
             </tbody>
             @endforeach
         </table>
+        {{ $usersList->links() }}
     </div>
 
 @endsection

@@ -43,9 +43,21 @@ class UserController extends Controller
         return redirect()->route('admin.signin');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $usersList = User::orderByDesc('created_at')->paginate(8);
+        if ($request->filled('search_value')) {
+            $request->flash();
+            $searchValue = $request->search_value;
+            $usersList = User::where('first_name', 'like', "%$searchValue%")
+                ->orWhere('last_name', 'like', "%$searchValue%")
+                ->orWhere('email', 'like', "%$searchValue%")
+                ->orderByDesc('created_at')
+                ->paginate(8)
+                ->appends('search_value', $searchValue);
+        } else {
+            $usersList = User::orderByDesc('created_at')->paginate(8);
+        }
+
         return view('admin.user.index', compact('usersList'));
     }
 
