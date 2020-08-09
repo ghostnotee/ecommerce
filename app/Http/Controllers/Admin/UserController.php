@@ -97,4 +97,14 @@ class UserController extends Controller
             ->with('message', ($request->id > 0 ? 'Güncellendi' : 'Kaydedildi'))
             ->with('message_type', 'success');
     }
+
+    public function delete($id)
+    {
+        User::destroy($id);
+
+        return redirect()
+            ->route('admin.user')
+            ->with('message_type', 'success')
+            ->with('message', 'Kullanıcı Silindi');
+    }
 }

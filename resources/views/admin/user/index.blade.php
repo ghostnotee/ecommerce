@@ -10,6 +10,7 @@
         </div>
         Kullanıcı Listesi
     </h3>
+    @include('layouts.partials.alert')
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -46,7 +47,8 @@
                            title="Tooltip on top">
                             <span class="fa fa-pencil"></span>
                         </a>
-                        <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top"
+                        <a href="{{ route('admin.user.delete',$user->id) }}" class="btn btn-xs btn-danger"
+                           data-toggle="tooltip" data-placement="top"
                            title="Tooltip on top" onclick="return confirm('Emin misiniz?')">
                             <span class="fa fa-trash"></span>
                         </a>
