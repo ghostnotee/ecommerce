@@ -66,11 +66,14 @@ class UserController extends Controller
             'email' => 'required|email'
         ]);
 
-        $data = $request->only('first_name', 'last_name', 'email');
+        $data = $request->only('first_name', 'last_name', 'email', 'user_name', 'is_active', 'is_admin');
 
-        if ($request->filled('password')) $data['password'] = Hash::make($request->password);
-        $data['is_active'] = $request->has('is_active') ? 1 : 0;
-        $data['is_admin'] = $request->has('is_admin') ? 1 : 0;
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        /*$data['is_active'] = $request->has('is_active') ? 1 : 0;
+        $data['is_admin'] = $request->has('is_admin') ? 1 : 0;*/
 
         if ($request->id > 0) {
             // update
@@ -93,5 +96,15 @@ class UserController extends Controller
         return redirect()->route('admin.user.edit', $user->id)
             ->with('message', ($request->id > 0 ? 'Güncellendi' : 'Kaydedildi'))
             ->with('message_type', 'success');
+    }
+
+    public function delete($id)
+    {
+        User::destroy($id);
+
+        return redirect()
+            ->route('admin.user')
+            ->with('message_type', 'success')
+            ->with('message', 'Kullanıcı Silindi');
     }
 }

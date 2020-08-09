@@ -5,12 +5,12 @@
     <h1 class="page-header">Kullanıcı Yönetimi</h1>
 
     <h3 class="sub-header">
-        <div class="btn-group pull-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary">Print</button>
-            <button type="button" class="btn btn-primary">Export</button>
+        <div class="btn-group pull-right">
+            <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Yeni Kullanıcı</a>
         </div>
         Kullanıcı Listesi
     </h3>
+    @include('layouts.partials.alert')
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -47,7 +47,8 @@
                            title="Tooltip on top">
                             <span class="fa fa-pencil"></span>
                         </a>
-                        <a href="#" class="btn btn-xs btn-danger" data-toggle="tooltip" data-placement="top"
+                        <a href="{{ route('admin.user.delete',$user->id) }}" class="btn btn-xs btn-danger"
+                           data-toggle="tooltip" data-placement="top"
                            title="Tooltip on top" onclick="return confirm('Emin misiniz?')">
                             <span class="fa fa-trash"></span>
                         </a>

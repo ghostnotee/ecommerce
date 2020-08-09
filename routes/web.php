@@ -23,7 +23,7 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
 
     Route::prefix('/user')->group(function () {
         Route::match(['get', 'post'], '/', 'UserController@index')->name('admin.user');
-        Route::post('/create', 'UserController@form')->name('admin.user.create');
+        Route::get('/create', 'UserController@form')->name('admin.user.create');
         Route::get('/edit/{id}', 'UserController@form')->name('admin.user.edit');
         Route::post('/save', 'UserController@save')->name('admin.user.save');
         Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
