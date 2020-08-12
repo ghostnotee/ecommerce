@@ -28,6 +28,14 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
         Route::post('/save', 'UserController@save')->name('admin.user.save');
         Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
     });
+
+    Route::prefix('/category')->group(function () {
+        Route::match(['get', 'post'], '/', 'CategoryController@index')->name('admin.category');
+        Route::get('/create', 'CategoryController@form')->name('admin.category.create');
+        Route::get('/edit/{id}', 'CategoryController@form')->name('admin.category.edit');
+        Route::post('/save', 'CategoryController@save')->name('admin.category.save');
+        Route::get('/delete/{id}', 'CategoryController@delete')->name('admin.category.delete');
+    });
 });
 
 Route::get('/', 'HomePageController@index')->name('homepage');
