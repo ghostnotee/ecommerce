@@ -27,11 +27,11 @@ class CategoryController extends Controller
 
     public function form($id = 0)
     {
-        $user = new User;
+        $category = new Category;
         if ($id > 0) {
-            $user = User::find($id);
+            $category = Category::find($id);
         }
-        return view('admin.user.form', compact('user'));
+        return view('admin.category.form', compact('category'));
     }
 
     public function save(Request $request)

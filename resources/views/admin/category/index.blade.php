@@ -6,12 +6,12 @@
     <h4 class="sub-header">Kullanıcı Listesi</h4>
     <div class="well">
         <div class="btn-group pull-right">
-            <a href="{{ route('admin.category.create') }}" class="btn btn-primary ">Yeni Kullanıcı</a>
+            <a href="{{ route('admin.category.create') }}" class="btn btn-primary ">Yeni Kategory</a>
         </div>
         <form method="post" action="{{ route('admin.category') }}" class="form-inline">
             @csrf
             <div class="form-group">
-                <label for="search_value">Ara</label>
+                <label for="search_value">Ara :</label>
                 <input type="text" class="form-control form-control-sm" name="search_value" id="search_value"
                        placeholder="Kategori Ara..." value="{{ old('search_value') }}">
             </div>
