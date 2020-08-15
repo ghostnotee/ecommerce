@@ -4,7 +4,7 @@
 
     <h1 class="page-header">Kullanıcı Yönetimi</h1>
 
-    <form method="post" action="{{ route('admin.user.save'), $user->id }}">
+    <form method="post" action="{{ route('admin.user.save', $user->id) }}">
         @csrf
         <h3 class="sub-header">Kullanıcı {{ $user->id > 0 ? 'Güncelleme' : 'Kaydetme' }} Formu</h3>
         @include('layouts.partials.errors')

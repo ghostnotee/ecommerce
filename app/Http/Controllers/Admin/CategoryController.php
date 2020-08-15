@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -31,45 +32,32 @@ class CategoryController extends Controller
         if ($id > 0) {
             $category = Category::find($id);
         }
-        return view('admin.category.form', compact('category'));
+
+        $categories = Category::all();
+
+        return view('admin.category.form', compact('category', 'categories'));
     }
 
     public function save(Request $request)
     {
         $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email'
+            'category_name' => 'required'
         ]);
 
-        $data = $request->only('first_name', 'last_name', 'email', 'user_name', 'is_active', 'is_admin');
+        $data = $request->only('category_name', 'slug', 'up_id');
 
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-
-        /*$data['is_active'] = $request->has('is_active') ? 1 : 0;
-        $data['is_admin'] = $request->has('is_admin') ? 1 : 0;*/
+        $data['slug'] = $data['slug'] ?: Str::slug($data['category_name']);
 
         if ($request->id > 0) {
             // update
-            $user = User::where('id', $request->id)->firstOrFail();
-            $user->update($data);
+            $category = Category::where('id', $request->id)->firstOrFail();
+            $category->update($data);
         } else {
             // new create
-            $user = User::create($data);
+            $category = Category::create($data);
         }
 
-        UserDetail::updateOrCreate(
-            ['user_id' => $user->id],
-            [
-                'address' => $request->address,
-                'phone' => $request->phone,
-                'other_phone' => $request->other_phone
-            ]
-        );
-
-        return redirect()->route('admin.user.edit', $user->id)
+        return redirect()->route('admin.category.edit', $category->id)
             ->with('message', ($request->id > 0 ? 'Güncellendi' : 'Kaydedildi'))
             ->with('message_type', 'success');
     }
