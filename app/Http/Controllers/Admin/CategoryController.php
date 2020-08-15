@@ -40,20 +40,31 @@ class CategoryController extends Controller
 
     public function save(Request $request)
     {
-        $request->validate([
-            'category_name' => 'required'
-        ]);
-
         $data = $request->only('category_name', 'slug', 'up_id');
 
-        $data['slug'] = $data['slug'] ?: Str::slug($data['category_name']);
+        /*if (Category::whereSlug($data['slug'])->count() > 0)
+            return back()
+                ->withInput()
+                ->withErrors(['slug' => 'Slug değeri daha önceden kaydedilmiş.']);*/
+
+        /*if (!$request->filled('slug')) {
+            $data['slug'] = Str::slug($request->category_name);
+            $request->merge(['slug' => $data['slug']]);
+        }*/
+
+        $data['slug'] = $request->slug ?? Str::slug($request->category_name);
+
+        $request->merge(['slug' => $data['slug']]);
+
+        $request->validate([
+            'category_name' => 'required',
+            'slug' => $request['original_slug'] != $request['slug'] ? 'unique:categories,slug' : ''
+        ]);
 
         if ($request->id > 0) {
-            // update
             $category = Category::where('id', $request->id)->firstOrFail();
             $category->update($data);
         } else {
-            // new create
             $category = Category::create($data);
         }
 
