@@ -14,12 +14,14 @@ class CategoryController extends Controller
         if ($request->filled('search_value')) {
             $request->flash();
             $searchValue = $request->search_value;
-            $categoriesList = Category::where('category_name', 'like', "%$searchValue%")
-                ->orderByDesc('created_at')
+            $categoriesList = Category::with('upCategory')
+                ->where('category_name', 'like', "%$searchValue%")
+                ->orderByDesc('id')
                 ->paginate(8)
-                ->appends('search_value', $searchValue); // save the search value in serach result.
+                ->appends('search_value', $searchValue); // save the search value in search result.
         } else {
-            $categoriesList = Category::orderByDesc('created_at')->paginate(8);
+            $categoriesList = Category::with('upCategory')
+                ->orderByDesc('id')->paginate(8);
         }
 
         return view('admin.category.index', compact('categoriesList'));
@@ -75,7 +77,7 @@ class CategoryController extends Controller
     public function delete($id)
     {
         // attach/detach use methods for many to many relationships
-        $category=Category::find($id);
+        $category = Category::find($id);
         $category->products()->detach();
         $category->delete();
 

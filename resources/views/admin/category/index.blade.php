@@ -27,6 +27,7 @@
             <thead class="thead-dark">
             <tr>
                 <th>#</th>
+                <th>Üst Kategori</th>
                 <th>Slug</th>
                 <th>Kategori Adı</th>
                 <th>Kayıt Tarihi</th>
@@ -36,6 +37,7 @@
             @foreach($categoriesList as $category)
                 <tr>
                     <td>{{ $category->id }}</td>
+                    <td>{{ $category->upCategory->category_name }}</td>
                     <td>{{ $category->slug }}</td>
                     <td>{{ $category->category_name}}</td>
                     <td>{{ $category->created_at }}</td>
