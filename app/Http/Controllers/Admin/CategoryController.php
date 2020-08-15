@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -75,11 +74,16 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-        User::destroy($id);
+        // attach/detach use methods for many to many relationships
+        $category=Category::find($id);
+        $category->products()->detach();
+        $category->delete();
+
+        //Category::destroy($id);
 
         return redirect()
-            ->route('admin.user')
+            ->route('admin.category')
             ->with('message_type', 'success')
-            ->with('message', 'Kullanıcı Silindi');
+            ->with('message', 'Kategori Silindi');
     }
 }
