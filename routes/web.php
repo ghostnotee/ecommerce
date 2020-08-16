@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Admin')->prefix('/admin')->group(function () {
+Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::redirect('/', '/admin/signin');
     Route::match(['get', 'post'], '/signin', 'UserController@signInForm')->name('admin.signin');
     Route::get('/logout', 'UserController@logout')->name('admin.logout');
     Route::middleware('admin')->get('/homepage', 'HomepageController@index')->name('admin.homepage');
 
-    Route::prefix('/user')->group(function () {
+    Route::prefix('user')->group(function () {
         Route::match(['get', 'post'], '/', 'UserController@index')->name('admin.user');
         Route::get('/create', 'UserController@form')->name('admin.user.create');
         Route::get('/edit/{id}', 'UserController@form')->name('admin.user.edit');
@@ -27,7 +27,7 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
         Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
     });
 
-    Route::prefix('/category')->group(function () {
+    Route::prefix('category')->group(function () {
         Route::match(['get', 'post'], '/', 'CategoryController@index')->name('admin.category');
         Route::get('/create', 'CategoryController@form')->name('admin.category.create');
         Route::get('/edit/{id}', 'CategoryController@form')->name('admin.category.edit');

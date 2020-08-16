@@ -6,7 +6,7 @@
     <h4 class="sub-header">Ürün Listesi</h4>
     <div class="well">
         <div class="btn-group pull-right">
-            <a href="{{ route('admin.product.create') }}" class="btn btn-primary ">Yeni Kullanıcı</a>
+            <a href="{{ route('admin.product.create') }}" class="btn btn-primary ">Yeni Ürün</a>
         </div>
         <form method="post" action="{{ route('admin.product') }}" class="form-inline">
             @csrf

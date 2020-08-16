@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -27,57 +28,46 @@ class ProductController extends Controller
 
     public function form($id = 0)
     {
-        $user = new User;
+        $product = new Product();
         if ($id > 0) {
-            $user = User::find($id);
+            $product = Product::find($id);
         }
-        return view('admin.user.form', compact('user'));
+        return view('admin.product.form', compact('product'));
     }
 
     public function save(Request $request)
     {
+        $data = $request->only('product_name', 'slug', 'description', 'price');
+
+        $data['slug'] = $request->slug ?? Str::slug($request->product_name);
+
+        $request->merge(['slug' => $data['slug']]);
+
         $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email'
+            'product_name' => 'required',
+            'price' => 'required',
+            'slug' => $request['original_slug'] != $request['slug'] ? 'unique:categories,slug' : ''
         ]);
 
-        $data = $request->only('first_name', 'last_name', 'email', 'user_name', 'is_active', 'is_admin');
-
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-
         if ($request->id > 0) {
-            // update
-            $user = User::where('id', $request->id)->firstOrFail();
-            $user->update($data);
+            $product = Product::where('id', $request->id)->firstOrFail();
+            $product->update($data);
         } else {
-            // new create
-            $user = User::create($data);
+            $product = Product::create($data);
         }
 
-        UserDetail::updateOrCreate(
-            ['user_id' => $user->id],
-            [
-                'address' => $request->address,
-                'phone' => $request->phone,
-                'other_phone' => $request->other_phone
-            ]
-        );
-
-        return redirect()->route('admin.user.edit', $user->id)
+        return redirect()->route('admin.product.edit', $product->id)
             ->with('message', ($request->id > 0 ? 'Güncellendi' : 'Kaydedildi'))
             ->with('message_type', 'success');
     }
 
     public function delete($id)
     {
-        User::destroy($id);
+        Product::destroy($id);
 
         return redirect()
-            ->route('admin.user')
+            ->route('admin.product')
             ->with('message_type', 'success')
-            ->with('message', 'Kullanıcı Silindi');
+            ->with('message', 'Ürün Silindi');
     }
 }
