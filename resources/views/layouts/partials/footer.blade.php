@@ -1,4 +1,4 @@
-<footer class="navbar-default navbar-fixed-bottom">
+<footer>
     <div class="container">
         <div class="row">
             <div class="col-md-6">Ecommerce Sample &copy; @php echo date('Y') @endphp</div>

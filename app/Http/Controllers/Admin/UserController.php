@@ -84,9 +84,6 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
 
-        /*$data['is_active'] = $request->has('is_active') ? 1 : 0;
-        $data['is_admin'] = $request->has('is_admin') ? 1 : 0;*/
-
         if ($request->id > 0) {
             // update
             $user = User::where('id', $request->id)->firstOrFail();

@@ -43,4 +43,10 @@ class Category extends Model
     {
         return $this->belongsToMany('App\Models\Product', 'categories_products');
     }
+
+    public function upCategory()
+    {
+        return $this->belongsTo('App\Models\Category', 'up_id')
+            ->withDefault(['category_name' => 'Ana Kategori']);
+    }
 }

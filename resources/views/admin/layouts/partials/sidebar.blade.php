@@ -7,7 +7,7 @@
             <span class="fa fa-fw fa-dashboard"></span> Ürünler
             <span class="badge badge-dark badge-pill pull-right">14</span>
         </a>
-        <a href="#" class="list-group-item collapsed" data-target="#submenu1" data-toggle="collapse"
+        <a href="{{ route('admin.category') }}" class="list-group-item collapsed" data-target="#submenu1" data-toggle="collapse"
            data-parent="#sidebar"><span class="fa fa-fw fa-dashboard"></span> Kategoriler
             <span class="caret arrow"></span>
         </a>
