@@ -37,6 +37,11 @@
             </tr>
             </thead>
             <tbody>
+            @if(count($categoriesList)==0)
+                <tr>
+                    <td colspan="8" class="text-center">Kayıt Bulunamadı</td>
+                </tr>
+            @endif
             @foreach($usersList as $user)
                 <tr>
                     <td>{{ $user->id }}</td>

@@ -14,6 +14,16 @@
                 <label for="search_value">Ara :</label>
                 <input type="text" class="form-control form-control-sm" name="search_value" id="search_value"
                        placeholder="Kategori Ara..." value="{{ old('search_value') }}">
+                <label for="up_id">Üst Kategori</label>
+                <select name="up_id" id="up_id" class="form-control">
+                    <option value="">Seçiniz</option>
+                    @foreach($mainCategories as $categoryItem)
+                        <option value="{{ $categoryItem->id }}"
+                            {{ old('up_id')==$categoryItem->id?'selected':'' }}>
+                            {{ $categoryItem->category_name }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Ara</button>
             <a href="{{ route('admin.category') }}" class="btn btn-warning">Temizle</a>
@@ -34,6 +44,11 @@
             </tr>
             </thead>
             <tbody>
+            @if(count($categoriesList)==0)
+                <tr>
+                    <td colspan="6" class="text-center">Kayıt Bulunamadı</td>
+                </tr>
+            @endif
             @foreach($categoriesList as $category)
                 <tr>
                     <td>{{ $category->id }}</td>

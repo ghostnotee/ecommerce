@@ -11,20 +11,29 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->filled('search_value')) {
+        if ($request->filled('search_value') || $request->filled('up_id')) {
             $request->flash();
+
             $searchValue = $request->search_value;
+            $upId = $request->up_id;
+
             $categoriesList = Category::with('upCategory')
                 ->where('category_name', 'like', "%$searchValue%")
+                ->where('up_id', $upId)
                 ->orderByDesc('id')
                 ->paginate(8)
-                ->appends('search_value', $searchValue); // save the search value in search result.
+                // save the search value in search result.
+                ->appends(['search_value' => $searchValue, 'up_id' => $upId]);
         } else {
+            $request->flush();
+
             $categoriesList = Category::with('upCategory')
                 ->orderByDesc('id')->paginate(8);
         }
 
-        return view('admin.category.index', compact('categoriesList'));
+        $mainCategories = Category::whereRaw('up_id is null')->get();
+
+        return view('admin.category.index', compact('categoriesList', 'mainCategories'));
     }
 
     public function form($id = 0)
