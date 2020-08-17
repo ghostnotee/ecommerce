@@ -13,15 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::namespace('Admin')->prefix('/admin')->group(function () {
+Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::redirect('/', '/admin/signin');
     Route::match(['get', 'post'], '/signin', 'UserController@signInForm')->name('admin.signin');
     Route::get('/logout', 'UserController@logout')->name('admin.logout');
     Route::middleware('admin')->get('/homepage', 'HomepageController@index')->name('admin.homepage');
 
-    // /admin/user
-
-    Route::prefix('/user')->group(function () {
+    Route::prefix('user')->group(function () {
         Route::match(['get', 'post'], '/', 'UserController@index')->name('admin.user');
         Route::get('/create', 'UserController@form')->name('admin.user.create');
         Route::get('/edit/{id}', 'UserController@form')->name('admin.user.edit');
@@ -29,12 +27,20 @@ Route::namespace('Admin')->prefix('/admin')->group(function () {
         Route::get('/delete/{id}', 'UserController@delete')->name('admin.user.delete');
     });
 
-    Route::prefix('/category')->group(function () {
+    Route::prefix('category')->group(function () {
         Route::match(['get', 'post'], '/', 'CategoryController@index')->name('admin.category');
         Route::get('/create', 'CategoryController@form')->name('admin.category.create');
         Route::get('/edit/{id}', 'CategoryController@form')->name('admin.category.edit');
         Route::post('/save', 'CategoryController@save')->name('admin.category.save');
         Route::get('/delete/{id}', 'CategoryController@delete')->name('admin.category.delete');
+    });
+
+    Route::prefix('product')->group(function () {
+        Route::match(['get', 'post'], '/', 'ProductController@index')->name('admin.product');
+        Route::get('/create', 'ProductController@form')->name('admin.product.create');
+        Route::get('/edit/{id}', 'ProductController@form')->name('admin.product.edit');
+        Route::post('/save', 'ProductController@save')->name('admin.product.save');
+        Route::get('/delete/{id}', 'ProductController@delete')->name('admin.product.delete');
     });
 });
 

@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductDetails extends Model
 {
     public $timestamps = false;
+    public $guarded = [];
 
     public function product()
     {
