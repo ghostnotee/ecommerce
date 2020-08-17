@@ -68,7 +68,10 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        Product::destroy($id);
+        $product = Product::find($id);
+        $product->categories()->detach();   //deleting function for manyToMany relationship. detach=ayırma.
+        //$product->details()->delete();      //oneToOne. üründe soft delete kullandım.detayı silmiyorum.
+        $product->delete();
 
         return redirect()
             ->route('admin.product')
