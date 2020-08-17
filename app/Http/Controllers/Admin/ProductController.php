@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -29,10 +30,16 @@ class ProductController extends Controller
     public function form($id = 0)
     {
         $product = new Product();
+        $categoriesOfProduct = [];
+
         if ($id > 0) {
             $product = Product::find($id);
+            $categoriesOfProduct = $product->categories()->pluck('category_id')->all();
         }
-        return view('admin.product.form', compact('product'));
+
+        $categories = Category::all();
+
+        return view('admin.product.form', compact('product', 'categories', 'categoriesOfProduct'));
     }
 
     public function save(Request $request)
@@ -49,6 +56,8 @@ class ProductController extends Controller
             'slug' => $request['original_slug'] != $request['slug'] ? 'unique:categories,slug' : ''
         ]);
 
+        $categories = $request['categories'];
+
         $productDetail = $request->only('show_slider', 'show_opportunity_of_the_day',
             'show_featured', 'show_most_selling', 'show_damp');
 
@@ -56,9 +65,11 @@ class ProductController extends Controller
             $product = Product::where('id', $request->id)->firstOrFail();
             $product->update($data);
             $product->details()->update($productDetail);
+            $product->categories()->sync($categories);
         } else {
             $product = Product::create($data);
             $product->details()->create($productDetail);
+            $product->categories()->attach($categories); // many to many için ekleme.
         }
 
         return redirect()->route('admin.product.edit', $product->id)

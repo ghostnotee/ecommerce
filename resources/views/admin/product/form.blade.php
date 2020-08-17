@@ -1,4 +1,7 @@
 @extends('admin.layouts.master')
+@section('head')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+@endsection
 @section('title','Ürün Yönetimi')
 @section('content')
 
@@ -78,6 +81,21 @@
             </label>
         </div>
         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="categories">Kategoriler</label>
+                    <select name="categories[]" id="categories" class="form-control" multiple>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}"
+                                {{ collect( old('categories',$categoriesOfProduct))->contains($category->id) ? 'selected' : '' }}>
+                                {{ $category->category_name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary">
                     {{ $product->id > 0 ? 'Güncelle' : 'Kaydet' }}
@@ -85,4 +103,14 @@
             </div>
         </div>
     </form>
+@endsection
+@section('footer')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script>
+        $(function () {
+            $('#categories').select2({
+                placaholder: 'Lütfen kategori seçiniz.'
+            });
+        });
+    </script>
 @endsection
