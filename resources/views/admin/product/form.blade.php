@@ -32,9 +32,8 @@
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="description">Açıklama</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Açıklama">
-                        {{ old('description',$product->description) }}
-                    </textarea>
+                    <textarea class="form-control" id="description" name="description"
+                              placeholder="Açıklama">{{ old('description',$product->description) }}</textarea>
                 </div>
             </div>
         </div>
@@ -47,6 +46,37 @@
                 </div>
             </div>
         </div>
+        <div class="checkbox">
+            <label>
+                <input type="hidden" name="show_slider" value="0">
+                <input type="checkbox" name="show_slider" value="1"
+                    {{ old('show_slider', $product->details->show_slider) ? 'checked' : ''}}> Slider'da göster.
+            </label>
+            <label>
+                <input type="hidden" name="show_opportunity_of_the_day" value="0">
+                <input type="checkbox" name="show_opportunity_of_the_day" value="1"
+                    {{ old('show_opportunity_of_the_day', $product->details->show_opportunity_of_the_day) ? 'checked' : ''}}>
+                Günün fırsatında göster.
+            </label>
+            <label>
+                <input type="hidden" name="show_featured" value="0">
+                <input type="checkbox" name="show_featured" value="1"
+                    {{ old('show_featured', $product->details->show_featured) ? 'checked' : ''}}>
+                Öne çıkanda göster.
+            </label>
+            <label>
+                <input type="hidden" name="show_most_selling" value="0">
+                <input type="checkbox" name="show_most_selling" value="1"
+                    {{ old('show_most_selling', $product->details->show_most_selling) ? 'checked' : ''}}>
+                Çok satanda göster.
+            </label>
+            <label>
+                <input type="hidden" name="show_damp" value="0">
+                <input type="checkbox" name="show_damp" value="1"
+                    {{ old('show_damp', $product->details->show_damp) ? 'checked' : ''}}>
+                İndirimli ürünlerde göster.
+            </label>
+        </div>
         <div class="row">
             <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary">
@@ -55,5 +85,4 @@
             </div>
         </div>
     </form>
-
 @endsection

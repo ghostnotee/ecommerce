@@ -49,11 +49,16 @@ class ProductController extends Controller
             'slug' => $request['original_slug'] != $request['slug'] ? 'unique:categories,slug' : ''
         ]);
 
+        $productDetail = $request->only('show_slider', 'show_opportunity_of_the_day',
+            'show_featured', 'show_most_selling', 'show_damp');
+
         if ($request->id > 0) {
             $product = Product::where('id', $request->id)->firstOrFail();
             $product->update($data);
+            $product->details()->update($productDetail);
         } else {
             $product = Product::create($data);
+            $product->details()->create($productDetail);
         }
 
         return redirect()->route('admin.product.edit', $product->id)
