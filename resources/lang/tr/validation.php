@@ -157,7 +157,8 @@ return [
     */
 
     'attributes' => [
-        'slug' => 'Slug'
+        'slug' => 'Slug',
+        'description'=>'Açıklama'
     ],
 
 ];

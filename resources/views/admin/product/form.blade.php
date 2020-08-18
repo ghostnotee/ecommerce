@@ -7,7 +7,7 @@
 
     <h1 class="page-header">Ürün Yönetimi</h1>
 
-    <form method="post" action="{{ route('admin.product.save', $product->id) }}">
+    <form method="post" action="{{ route('admin.product.save', $product->id) }}" enctype="multipart/form-data">
         @csrf
         <h3 class="sub-header">Ürün {{ $product->id > 0 ? 'Güncelleme' : 'Kaydetme' }} Formu</h3>
 
@@ -94,6 +94,9 @@
                     </select>
                 </div>
             </div>
+        </div>
+        <div class="form-group">
+            <input type="file" id="product_photo" name="product_photo">
         </div>
         <div class="row">
             <div class="col-sm-2">

@@ -53,6 +53,7 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required',
             'price' => 'required',
+            'description' => 'required',
             'slug' => $request['original_slug'] != $request['slug'] ? 'unique:categories,slug' : ''
         ]);
 
@@ -70,6 +71,23 @@ class ProductController extends Controller
             $product = Product::create($data);
             $product->details()->create($productDetail);
             $product->categories()->attach($categories); // many to many için ekleme.
+        }
+
+        if ($request->hasFile('product_photo')) {
+            $request->validate([
+                'product_photo' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+            ]);
+
+            //$productPhoto=$request->file('product_photo');
+            $productPhoto = $request->product_photo;
+
+            //$fileName = $productPhoto->getClientOriginalName();
+            //$fileName = $productPhoto->hashName();
+            $fileName = $product->id . "-" . time() . "." . $productPhoto->extension();
+
+            if ($productPhoto->isValid()) {
+                $productPhoto->move('uploads/products', $fileName);
+            }
         }
 
         return redirect()->route('admin.product.edit', $product->id)
