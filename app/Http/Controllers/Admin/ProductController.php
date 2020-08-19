@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -81,12 +82,17 @@ class ProductController extends Controller
             //$productPhoto=$request->file('product_photo');
             $productPhoto = $request->product_photo;
 
-            //$fileName = $productPhoto->getClientOriginalName();
-            //$fileName = $productPhoto->hashName();
+            //$fileName = $productPhoto->getClientOriginalName();   //kullanıcının gönderdiği dosyasının orginal adı.
+            //$fileName = $productPhoto->hashName();                //rastgele bir dosya adı üretme.
+
             $fileName = $product->id . "-" . time() . "." . $productPhoto->extension();
 
             if ($productPhoto->isValid()) {
-                $productPhoto->move('uploads/products', $fileName);
+                $productPhoto->move('uploads/products', $fileName); //php'de kullanımı farklı.
+                ProductDetail::updateOrCreate(
+                    ['product_id' => $product->id],
+                    ['product_photo' => $fileName]
+                );
             }
         }
 

@@ -9,7 +9,7 @@
 
     <form method="post" action="{{ route('admin.product.save', $product->id) }}" enctype="multipart/form-data">
         @csrf
-        <h3 class="sub-header">Ürün {{ $product->id > 0 ? 'Güncelleme' : 'Kaydetme' }} Formu</h3>
+        <h4 class="sub-header">Ürün {{ $product->id > 0 ? 'Güncelleme' : 'Kaydetme' }} Formu</h4>
 
         @include('layouts.partials.errors')
         @include('layouts.partials.alert')
@@ -96,6 +96,7 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="product_photo">Ürün Fotoğrafı 🥁</label>
             <input type="file" id="product_photo" name="product_photo">
         </div>
         <div class="row">
