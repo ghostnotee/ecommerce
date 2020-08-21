@@ -115,12 +115,19 @@
     </form>
 @endsection
 @section('footer')
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
         $(function () {
             $('#categories').select2({
                 placaholder: 'Lütfen kategori seçiniz.'
             });
+
+            var options = {
+                uiColor: '#f4645f',
+                language: 'tr'
+            }
+            CKEDITOR.replace('description', options);
         });
     </script>
 @endsection
