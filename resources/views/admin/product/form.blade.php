@@ -95,9 +95,15 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="product_photo">Ürün Fotoğrafı 🥁</label>
-            <input type="file" id="product_photo" name="product_photo">
+        <div class="row">
+            <div class="form-group">
+                <label class="col-md-2" for="product_photo">Ürün Fotoğrafı 🥁</label>
+                <input type="file" class="col-md-3" id="product_photo" name="product_photo">
+                @if($product->details->product_photo !=null)
+                    <img src="/uploads/products/{{$product->details->product_photo}}"
+                         style="height: 100px;margin-right: 20px" class="thumbnail">
+                @endif
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-2">
