@@ -2,6 +2,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/phpstorm+all,laravel
 # Edit at https://www.toptal.com/developers/gitignore?templates=phpstorm+all,laravel
 
+/public/uploads/
+/public/vendor/laravel-filemanager/images/
+/public/vendor/laravel-filemanager/files/
+
 ### Laravel ###
 /vendor/
 node_modules/
