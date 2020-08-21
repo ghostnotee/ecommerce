@@ -27,6 +27,7 @@
             <thead class="thead-dark">
             <tr>
                 <th>#</th>
+                <th>Ürün Fotoğrafı</th>
                 <th>Slug</th>
                 <th>Ürün Adı</th>
                 <th>Fiyatı</th>
@@ -36,12 +37,17 @@
             <tbody>
             @if(count($productsList)==0)
                 <tr>
-                    <td colspan="6" class="text-center">Kayıt Bulunamadı</td>
+                    <td colspan="7" class="text-center">Kayıt Bulunamadı</td>
                 </tr>
             @endif
             @foreach($productsList as $productItem)
                 <tr>
                     <td>{{ $productItem->id }}</td>
+                    <td>
+                        <img
+                            src="{{$productItem->details->product_photo!=null?asset('uploads/products/'.$productItem->details->product_photo):'http://via.placeholder.com/100x100?text=ÜrünFoto'}}"
+                            style="width: 100px;" alt="">
+                    </td>
                     <td>{{ $productItem->slug }}</td>
                     <td>{{ $productItem->product_name }}</td>
                     <td>{{ $productItem->price }}</td>

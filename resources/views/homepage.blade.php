@@ -30,7 +30,9 @@
                     <div class="carousel-inner" role="listbox">
                         @foreach($productSlider as $index=>$product)
                             <div class="item {{$index ==0 ? 'active' : ''}}">
-                                <img src="http://via.placeholder.com/640x400?text=SliderdakiUrunResmi" alt="...">
+                                <img
+                                    src=" {{$product->details->product_photo!=null ? asset('uploads/products/'.$product->details->product_photo) : 'http://via.placeholder.com/400x400?text=SliderUrunResmi'}}"
+                                    class="img-responsive" style="min-width:100%;">
                                 <div class="carousel-caption">
                                     {{$product->product_name}}
                                 </div>
@@ -52,7 +54,9 @@
                     <div class="panel-heading">Günün Fırsatı</div>
                     <div class="panel-body">
                         <a href="{{route('product',$productOpportunityOfTheDay->slug)}}">
-                            <img src="http://via.placeholder.com/400x470?text=FırsatUrunResmi" class="img-responsive">
+                            <img
+                                src=" {{$productOpportunityOfTheDay->details->product_photo!=null ? asset('uploads/products/'.$productOpportunityOfTheDay->details->product_photo) : 'http://via.placeholder.com/400x470?text=FırsatUrunResmi'}}"
+                                class="img-responsive" style="min-width:100%;">
                             {{$productOpportunityOfTheDay->product_name}}
                         </a>
                     </div>
@@ -68,8 +72,11 @@
                     <div class="row">
                         @foreach($productFeatured as $product)
                             <div class="col-md-3 product">
-                                <a href="{{route('product',$product->slug)}}"><img
-                                        src="http://via.placeholder.com/400x400?text=ÖneÇıkanUrunResmi"></a>
+                                <a href="{{route('product',$product->slug)}}">
+                                    <img
+                                        src=" {{$product->details->product_photo!=null ? asset('uploads/products/'.$product->details->product_photo) : 'http://via.placeholder.com/400x400?text=SliderUrunResmi'}}"
+                                        class="img-responsive" style="min-width:100%;">
+                                </a>
                                 <p>
                                     <a href="{{route('product',$product->slug)}}">{{$product->product_name}}</a>
                                 </p>
@@ -88,8 +95,11 @@
                     <div class="row">
                         @foreach($productMostSelling as $product)
                             <div class="col-md-3 product">
-                                <a href="{{route('product',$product->slug)}}"><img
-                                        src="http://via.placeholder.com/400x400?text=ÇokSatanUrunResmi"></a>
+                                <a href="{{route('product',$product->slug)}}">
+                                    <img
+                                        src=" {{$product->details->product_photo!=null ? asset('uploads/products/'.$product->details->product_photo) : 'http://via.placeholder.com/400x400?text=SliderUrunResmi'}}"
+                                        class="img-responsive" style="min-width:100%;">
+                                </a>
                                 <p>
                                     <a href="{{route('product',$product->slug)}}">{{$product->product_name}}</a>
                                 </p>
@@ -107,8 +117,11 @@
                     <div class="row">
                         @foreach($productDamp as $product)
                             <div class="col-md-3 product">
-                                <a href="{{route('product',$product->slug)}}"><img
-                                        src="http://via.placeholder.com/400x400?text=İndirimliUrunResmi"></a>
+                                <a href="{{route('product',$product->slug)}}">
+                                    <img
+                                        src=" {{$product->details->product_photo!=null ? asset('uploads/products/'.$product->details->product_photo) : 'http://via.placeholder.com/400x400?text=SliderUrunResmi'}}"
+                                        class="img-responsive" style="min-width:100%;">
+                                </a>
                                 <p>
                                     <a href="{{route('product',$product->slug)}}">{{$product->product_name}}</a>
                                 </p>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -53,6 +54,7 @@ class ProductController extends Controller
         $request->validate([
             'product_name' => 'required',
             'price' => 'required',
+            'description' => 'required',
             'slug' => $request['original_slug'] != $request['slug'] ? 'unique:categories,slug' : ''
         ]);
 
@@ -70,6 +72,28 @@ class ProductController extends Controller
             $product = Product::create($data);
             $product->details()->create($productDetail);
             $product->categories()->attach($categories); // many to many için ekleme.
+        }
+
+        if ($request->hasFile('product_photo')) {
+            $request->validate([
+                'product_photo' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+            ]);
+
+            //$productPhoto=$request->file('product_photo');
+            $productPhoto = $request->product_photo;
+
+            //$fileName = $productPhoto->getClientOriginalName();   //kullanıcının gönderdiği dosyasının orginal adı.
+            //$fileName = $productPhoto->hashName();                //rastgele bir dosya adı üretme.
+
+            $fileName = $product->id . "-" . time() . "." . $productPhoto->extension();
+
+            if ($productPhoto->isValid()) {
+                $productPhoto->move('uploads/products', $fileName); //php'de kullanımı farklı.
+                ProductDetail::updateOrCreate(
+                    ['product_id' => $product->id],
+                    ['product_photo' => $fileName]
+                );
+            }
         }
 
         return redirect()->route('admin.product.edit', $product->id)

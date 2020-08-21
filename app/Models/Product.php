@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Category[] $categories
  * @property-read int|null $categories_count
- * @property-read \App\Models\ProductDetails|null $details
+ * @property-read \App\Models\ProductDetail|null $details
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Product onlyTrashed()
@@ -48,6 +48,6 @@ class Product extends Model
 
     public function details()
     {
-        return $this->hasOne('App\Models\ProductDetails', 'product_id')->withDefault();
+        return $this->hasOne('App\Models\ProductDetail', 'product_id')->withDefault();
     }
 }

@@ -21,6 +21,7 @@ class CreateProductDetailsTable extends Migration
             $table->boolean('show_featured')->default(0);
             $table->boolean('show_most_selling')->default(0);
             $table->boolean('show_damp')->default(0);
+            $table->string('product_photo', 50)->nullable();
         });
     }
 

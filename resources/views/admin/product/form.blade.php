@@ -7,9 +7,9 @@
 
     <h1 class="page-header">Ürün Yönetimi</h1>
 
-    <form method="post" action="{{ route('admin.product.save', $product->id) }}">
+    <form method="post" action="{{ route('admin.product.save', $product->id) }}" enctype="multipart/form-data">
         @csrf
-        <h3 class="sub-header">Ürün {{ $product->id > 0 ? 'Güncelleme' : 'Kaydetme' }} Formu</h3>
+        <h4 class="sub-header">Ürün {{ $product->id > 0 ? 'Güncelleme' : 'Kaydetme' }} Formu</h4>
 
         @include('layouts.partials.errors')
         @include('layouts.partials.alert')
@@ -96,6 +96,16 @@
             </div>
         </div>
         <div class="row">
+            <div class="form-group">
+                <label class="col-md-2" for="product_photo">Ürün Fotoğrafı 🥁</label>
+                <input type="file" class="col-md-3" id="product_photo" name="product_photo">
+                @if($product->details->product_photo !=null)
+                    <img src="/uploads/products/{{$product->details->product_photo}}"
+                         style="height: 100px;margin-right: 20px" class="thumbnail">
+                @endif
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm-2">
                 <button type="submit" class="btn btn-primary">
                     {{ $product->id > 0 ? 'Güncelle' : 'Kaydet' }}
@@ -105,12 +115,30 @@
     </form>
 @endsection
 @section('footer')
+    <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.1/plugins/autogrow/plugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <script>
         $(function () {
             $('#categories').select2({
                 placaholder: 'Lütfen kategori seçiniz.'
             });
+
+            var options = {
+                uiColor: '#a76c6c',
+                language: 'tr',
+                extraPlugins: 'autogrow',
+                autoGrow_minHeight: 250,
+                autoGrow_maxHeight: 600,
+                filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+                filebrowserImageUploadUrl:
+                    '/laravel-filemanager/upload?type=Images&_token=',
+                filebrowserBrowseUrl:
+                    '/laravel-filemanager?type=Files',
+                filebrowserUploadUrl:
+                    '/laravel-filemanager/upload?type=Files&_token='
+            }
+            CKEDITOR.replace('description', options);
         });
     </script>
 @endsection

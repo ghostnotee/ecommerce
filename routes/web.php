@@ -80,3 +80,8 @@ Route::get('/test/mail', function () {
     $user = \App\Models\User::find(1);
     return new App\Mail\UserRegisterMail($user);
 });
+
+//For laravel Filemanager
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Product;
-use App\Models\ProductDetails;
+use App\Models\ProductDetail;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -20,7 +20,7 @@ class ProductTableSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         Product::truncate();
-        ProductDetails::truncate();
+        ProductDetail::truncate();
 
         for ($i = 0; $i < 30; $i++) {
             $productName = $faker->sentence(2);
