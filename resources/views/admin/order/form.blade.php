@@ -4,13 +4,14 @@
 
     <h1 class="page-header">Sipariş Yönetimi</h1>
 
-    <form method="post" action="{{ route('admin.order.save', $order->id) }}" enctype="multipart/form-data">
+    <form method="post" action="{{ route('admin.order.save') }}">
         @csrf
         <h4 class="sub-header">Sipariş {{ $order->id > 0 ? 'Güncelleme' : 'Kaydetme' }} Formu</h4>
 
         @include('layouts.partials.errors')
         @include('layouts.partials.alert')
 
+        <input type="hidden" name="id" value="{{$order->id}}">
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">

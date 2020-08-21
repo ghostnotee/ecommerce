@@ -50,7 +50,6 @@
                                 <form id="logout-form" action="{{route('user.signout')}}" method="post"
                                       style="display: none;">@csrf</form>
                             </li>
-
                         </ul>
                     </li>
                 @endauth
