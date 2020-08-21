@@ -3,12 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomepageController extends Controller
 {
     public function index()
     {
-        return view('admin.homepage');
+        /*if (!Cache::has('statistics')) {
+            $statistics = [
+                'pendingOrder' => Order::where('status', 'Siparişiniz alındı')->count()
+            ];
+            $endTime = now()->addMinutes(10);
+            Cache::put('statistics', $statistics, $endTime);
+            //Cache::add('statistics', $statistics, $endTime);
+        } else {
+            $statistics = Cache::get('statistics');
+        }*/
+
+        //Cache::forget('statistics');
+        //Cache::flush();
+
+        $endTime = now()->addMinutes(10);
+        $statistics = Cache::remember('statistics', $endTime, function () {
+            return ['pendingOrder' => Order::where('status', 'Siparişiniz alındı')->count()];
+        });
+
+        return view('admin.homepage', compact('statistics'));
     }
 }
