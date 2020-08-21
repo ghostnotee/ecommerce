@@ -31,17 +31,12 @@ class OrderController extends Controller
 
     public function form($id = 0)
     {
-        $product = new Product();
-        $categoriesOfProduct = [];
-
         if ($id > 0) {
-            $product = Product::find($id);
-            $categoriesOfProduct = $product->categories()->pluck('category_id')->all();
+            $order = Order::with('shoppingcart.shoppingcartproducts.product')->find($id);
+
         }
 
-        $categories = Category::all();
-
-        return view('admin.product.form', compact('product', 'categories', 'categoriesOfProduct'));
+        return view('admin.order.form', compact('order'));
     }
 
     public function save(Request $request)
