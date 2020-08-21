@@ -14,7 +14,7 @@ class HomePageController extends Controller
 
         $productSlider = Product::select('products.*')
             ->join('product_details', 'product_details.product_id', 'products.id')
-            ->where('product_details.show_opportunity_of_the_day', 1)
+            ->where('product_details.show_slider', 1)
             ->orderBy('updated_at', 'desc')
             ->take(5)->get();
 

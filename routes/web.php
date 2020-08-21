@@ -42,6 +42,14 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
         Route::post('/save', 'ProductController@save')->name('admin.product.save');
         Route::get('/delete/{id}', 'ProductController@delete')->name('admin.product.delete');
     });
+
+    Route::prefix('order')->group(function () {
+        Route::match(['get', 'post'], '/', 'OrderController@index')->name('admin.order');
+        Route::get('/create', 'OrderController@form')->name('admin.order.create');
+        Route::get('/edit/{id}', 'OrderController@form')->name('admin.order.edit');
+        Route::post('/save', 'OrderController@save')->name('admin.order.save');
+        Route::get('/delete/{id}', 'OrderController@delete')->name('admin.order.delete');
+    });
 });
 
 Route::get('/', 'HomePageController@index')->name('homepage');

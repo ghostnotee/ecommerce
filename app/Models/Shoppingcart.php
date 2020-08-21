@@ -67,4 +67,9 @@ class Shoppingcart extends Model
             ->whereRaw('deleted_at is null')
             ->sum('quantity');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }
