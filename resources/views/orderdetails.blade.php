@@ -17,8 +17,9 @@
                 @foreach($order->shoppingcart->shoppingcartProducts as $shoppingcartProduct)
                     <tr>
                         <td style="width: 120px">
-                            <a href="{{ route('product',$shoppingcartProduct->product->slug) }}">
-                                <img src="http://via.placeholder.com/120x100?text=Ürün_Fotoğrafı">
+                            <a href="{{ route('product', $shoppingcartProduct->product->slug) }}">
+                                <img src=" {{ $shoppingcartProduct->product->details->product_photo != null ? asset('uploads/products/'.$shoppingcartProduct->product->details->product_photo) :
+                                'http://via.placeholder.com/120x100?text=Ürün_Fotoğrafı'}} " style="height:120px">
                             </a>
                         </td>
                         <td>{{$shoppingcartProduct->product->product_name }}</td>

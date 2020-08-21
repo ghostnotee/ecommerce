@@ -19,9 +19,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="product_name">Ürün Adı</label>
-                    <input type="text" class="form-control" id="product_name"
-                           name="product_name" placeholder="Ürün İsmi"
-                           value="{{ old('product_name',$product->product_name) }}">
+                    <input type="text" class="form-control" id="product_name" name="product_name"
+                           placeholder="Ürün İsmi" value="{{ old('product_name',$product->product_name) }}">
                 </div>
             </div>
             <div class="col-md-4">

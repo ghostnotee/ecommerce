@@ -52,7 +52,7 @@
                            title="Tooltip on top">
                             <span class="fa fa-pencil"></span>
                         </a>
-                        <a href="{{ route('admin.product.delete',$order->id) }}" class="btn btn-xs btn-danger"
+                        <a href="{{ route('admin.order.delete',$order->id) }}" class="btn btn-xs btn-danger"
                            data-toggle="tooltip" data-placement="top"
                            title="Tooltip on top" onclick="return confirm('Emin misiniz?')">
                             <span class="fa fa-trash"></span>
