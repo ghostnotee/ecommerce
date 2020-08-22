@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class HomepageController extends Controller
 {
@@ -25,11 +22,11 @@ class HomepageController extends Controller
         //Cache::forget('statistics');
         //Cache::flush();
 
-        $endTime = now()->addMinutes(10);
+        /*$endTime = now()->addMinutes(10);
         $statistics = Cache::remember('statistics', $endTime, function () {
             return ['pendingOrder' => Order::where('status', 'Siparişiniz alındı')->count()];
-        });
+        });*/
 
-        return view('admin.homepage', compact('statistics'));
+        return view('admin.homepage');
     }
 }

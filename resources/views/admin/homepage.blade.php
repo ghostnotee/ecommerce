@@ -17,8 +17,8 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Tamamlanan Sipariş</div>
                 <div class="panel-body">
-                    <h4>123</h4>
-                    <p>Data</p>
+                    <h4>{{$statistics['complatedOrder']}}</h4>
+                    <p>adet</p>
                 </div>
             </div>
         </div>
@@ -26,17 +26,17 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Ürün</div>
                 <div class="panel-body">
-                    <h4>123</h4>
-                    <p>Data</p>
+                    <h4>{{$statistics['totalProduct']}}</h4>
+                    <p>adet</p>
                 </div>
             </div>
         </div>
         <div class="col-6 col-sm-3">
             <div class="panel panel-primary">
-                <div class="panel-heading">Header</div>
+                <div class="panel-heading">Kullanıcı</div>
                 <div class="panel-body">
-                    <h4>123</h4>
-                    <p>Data</p>
+                    <h4>{{$statistics['totalUser']}}</h4>
+                    <p>adet</p>
                 </div>
             </div>
         </div>
