@@ -3,30 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class HomepageController extends Controller
 {
     public function index()
     {
-        /*if (!Cache::has('statistics')) {
-            $statistics = [
-                'pendingOrder' => Order::where('status', 'Siparişiniz alındı')->count()
-            ];
-            $endTime = now()->addMinutes(10);
-            Cache::put('statistics', $statistics, $endTime);
-            //Cache::add('statistics', $statistics, $endTime);
-        } else {
-            $statistics = Cache::get('statistics');
-        }*/
+        $mostSellingProducts = DB::select("
+        SELECT p.product_name, sum(sp.quantity) quantity
+        FROM orders o
+        INNER JOIN shoppingcarts s ON o.id = o.shoppingcart_id
+        INNER JOIN shoppingcart_products sp ON o.id = sp.shoppingcart_id
+        INNER JOIN products p ON p.id=sp.product_id
+        GROUP BY p.product_name
+        ORDER BY SUM(sp.quantity) DESC
+        ");
 
-        //Cache::forget('statistics');
-        //Cache::flush();
-
-        /*$endTime = now()->addMinutes(10);
-        $statistics = Cache::remember('statistics', $endTime, function () {
-            return ['pendingOrder' => Order::where('status', 'Siparişiniz alındı')->count()];
-        });*/
-
-        return view('admin.homepage');
+        return view('admin.homepage', compact('mostSellingProducts'));
     }
 }
