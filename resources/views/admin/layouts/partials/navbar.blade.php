@@ -15,7 +15,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Laravel Ecommerce</a>
+            <a class="navbar-brand" href="{{ route('admin.homepage') }}">Selço Ecommerce</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
