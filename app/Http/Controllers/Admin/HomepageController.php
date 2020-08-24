@@ -19,6 +19,16 @@ class HomepageController extends Controller
         ORDER BY SUM(sp.quantity) DESC
         ");
 
-        return view('admin.homepage', compact('mostSellingProducts'));
+        $salesByMonth = DB::select("
+        select
+        date_format(o.created_at,'%Y-%m') month, sum(sp.quantity) quantity
+        from orders o
+        inner join shoppingcarts s on s.id=o.shoppingcart_id
+        inner join shoppingcart_products sp on o.id = sp.shoppingcart_id
+        group by date_format(o.created_at,'%Y-%m')
+        order by date_format(o.created_at,'%Y-%m')
+        ");
+
+        return view('admin.homepage', compact('mostSellingProducts','salesByMonth'));
     }
 }

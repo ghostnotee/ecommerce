@@ -52,7 +52,12 @@
             </div>
         </div>
         <div class="col-sm-6">
-
+            <div class="panel panel-primary">
+                <div class="panel-heading">Aylara Göre Satışlar</div>
+                <div class="panel-body">
+                    <canvas id="chartSalesByMonth"></canvas>
+                </div>
+            </div>
         </div>
     </section>
 @endsection
@@ -89,6 +94,42 @@
                 },
                 scales: {
                     xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            }
+        });
+
+        @php
+            $labels="";
+            $data="";
+            foreach ($salesByMonth as $sales) {
+                $labels .= "\"$sales->month\", ";
+                $data .= "$sales->quantity, ";
+            }
+        @endphp
+
+        var ctx2 = document.getElementById('chartSalesByMonth').getContext('2d');
+        var chartSalesByMonth = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: [{!! $labels !!}],
+                datasets: [{
+                    label: 'Aylara Göre Satışlar',
+                    data: [{!! $data !!}],
+                    borderColor: 'rgb(255,99,132)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    position: 'bottom'
+                },
+                scales: {
+                    yAxes: [{
                         ticks: {
                             beginAtZero: true,
                             stepSize: 1
