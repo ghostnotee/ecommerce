@@ -35,8 +35,10 @@ class AppServiceProvider extends ServiceProvider
             return ['pendingOrder' => Order::where('status', 'Siparişiniz alındı')->count()];
         });
 
+        // View::share tüm view'lara değişken gönderiyor.
         View::share('statistics', $statistics);*/
 
+        //View::composer belirtilen viewlara değer gönderiyor. admin sayfalarına mesela.
         View::composer(['admin.*'], function ($view) {
             $endTime = now()->addMinutes(10);
             $statistics = Cache::remember('statistics', $endTime, function () {
